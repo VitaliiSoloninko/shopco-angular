@@ -43,11 +43,11 @@ export class SidebarComponent {
       icon: '/images/svg/admin/list-ordered.svg',
       linkText: 'Orders',
     },
-    {
-      routerLink: 'settings',
-      icon: '/images/svg/admin/settings.svg',
-      linkText: 'Settings',
-    },
+    // {
+    //   routerLink: 'settings',
+    //   icon: '/images/svg/admin/settings.svg',
+    //   linkText: 'Settings',
+    // },
     {
       routerLink: '/',
       icon: '/images/svg/admin/house.svg',

@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
+import { BRANDS } from '../../../data/brands.data';
 import { ORDERS } from '../../../data/orders.data';
 import { PRODUCTS_DATA } from '../../../data/products.data';
+import { TYPES } from '../../../data/types.data';
 import { USERS } from '../../../data/users.data';
 import { AdminDashboardCardComponent } from '../../../shared/ui/admin-dashboard-card/admin-dashboard-card.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
@@ -13,10 +15,12 @@ import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.compon
 })
 export class DashboardPageComponent {
   stats = signal({
-    totalRevenue: this.calculateTotalRevenue(),
-    totalOrders: ORDERS.length,
-    totalUsers: USERS.length,
     totalProducts: PRODUCTS_DATA.rows.length,
+    totalBrands: BRANDS.length,
+    totalTypes: TYPES.length,
+    totalUsers: USERS.length,
+    totalOrders: ORDERS.length,
+    totalRevenue: this.calculateTotalRevenue(),
   });
 
   // last 5 orders

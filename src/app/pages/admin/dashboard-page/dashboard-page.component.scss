@@ -17,91 +17,6 @@
   margin-bottom: 2rem;
 }
 
-/* Notifications Section */
-.notifications-section {
-  background: var(--white-color);
-  border-radius: 20px;
-  border: 1px solid var(--grey-light-color);
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  height: 100%;
-}
-
-.section-header {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--grey-light-color);
-}
-
-.section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #000;
-  margin: 0;
-}
-
-.notifications-list {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.notification-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 0.75rem;
-  transition: all 0.3s ease;
-  border-left: 4px solid transparent;
-}
-
-.notification-item:hover {
-  background-color: #f8f9fa;
-}
-
-.notification-item:last-child {
-  margin-bottom: 0;
-}
-
-.notification-item.urgent {
-  border-left-color: #ef4444;
-  background-color: #fef2f2;
-}
-
-.notification-item.info {
-  border-left-color: #3b82f6;
-  background-color: #eff6ff;
-}
-
-.notification-item.success {
-  border-left-color: #10b981;
-  background-color: #f0fdf4;
-}
-
-.notification-icon {
-  font-size: 1.25rem;
-  flex-shrink: 0;
-  margin-top: 0.125rem;
-}
-
-.notification-content {
-  flex: 1;
-}
-
-.notification-title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 0.25rem;
-}
-
-.notification-text {
-  font-size: 0.8rem;
-  color: var(--grey-color);
-  line-height: 1.4;
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
   .charts-grid {
@@ -128,33 +43,11 @@
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
-
-  .notifications-section {
-    padding: 1.25rem;
-  }
-
-  .notification-item {
-    padding: 0.75rem;
-  }
 }
 
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .notification-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .notification-icon {
-    align-self: flex-start;
-  }
-
-  .section-title {
-    font-size: 1.1rem;
   }
 }

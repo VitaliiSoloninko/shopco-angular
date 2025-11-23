@@ -1,24 +1,28 @@
 <div class="dashboard-page">
-  <div class="page-header">
-    <h1 class="h1">Dashboard</h1>
-  </div>
+  <h1 class="h1">Dashboard</h1>
 
   <app-gray-line></app-gray-line>
 
   <div class="stats-grid">
     <app-admin-dashboard-card
-      title="Total Revenue"
-      [value]="'$' + stats().totalRevenue"
-      icon="/images/svg/basket.svg"
-      [trend]="{ value: 12.5, isPositive: true }"
-      color="#10b981"
+      title="Total Products"
+      [value]="stats().totalProducts"
+      icon="/images/svg/admin/shirt.svg"
+      color="#f59e0b"
     ></app-admin-dashboard-card>
+
     <app-admin-dashboard-card
-      title="Total Orders"
-      [value]="stats().totalOrders"
-      icon="/images/svg/admin/list-ordered.svg"
-      [trend]="{ value: 8.2, isPositive: true }"
-      color="#3b82f6"
+      title="Total Brands"
+      [value]="stats().totalBrands"
+      icon="/images/svg/admin/shop.svg"
+      color="#e11d48"
+    ></app-admin-dashboard-card>
+
+    <app-admin-dashboard-card
+      title="Total Types"
+      [value]="stats().totalTypes"
+      icon="/images/svg/admin/type.svg"
+      color="#0ea5e9"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
@@ -30,54 +34,21 @@
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Products"
-      [value]="stats().totalProducts"
-      icon="/images/svg/admin/shirt.svg"
-      color="#f59e0b"
+      title="Total Orders"
+      [value]="stats().totalOrders"
+      icon="/images/svg/admin/list-ordered.svg"
+      [trend]="{ value: 8.2, isPositive: true }"
+      color="#3b82f6"
+    ></app-admin-dashboard-card>
+
+    <app-admin-dashboard-card
+      title="Total Revenue"
+      [value]="'$' + stats().totalRevenue"
+      icon="/images/svg/basket.svg"
+      [trend]="{ value: 12.5, isPositive: true }"
+      color="#10b981"
     ></app-admin-dashboard-card>
   </div>
 
-  <!-- Bottom row - notifications -->
-
-  <div class="notifications-section">
-    <div class="section-header">
-      <h2 class="section-title">Notifications</h2>
-    </div>
-
-    <div class="notifications-list">
-      <div class="notification-item urgent">
-        <div class="notification-icon">⚠️</div>
-        <div class="notification-content">
-          <div class="notification-title">Low Stock Alert</div>
-          <div class="notification-text">
-            5 products are running low on stock
-          </div>
-        </div>
-      </div>
-
-      <div class="notification-item info">
-        <div class="notification-icon">📦</div>
-        <div class="notification-content">
-          <div class="notification-title">New Orders</div>
-          <div class="notification-text">3 new orders received today</div>
-        </div>
-      </div>
-
-      <div class="notification-item success">
-        <div class="notification-icon">✅</div>
-        <div class="notification-content">
-          <div class="notification-title">Payment Received</div>
-          <div class="notification-text">$1,250 payment confirmed</div>
-        </div>
-      </div>
-
-      <div class="notification-item info">
-        <div class="notification-icon">👤</div>
-        <div class="notification-content">
-          <div class="notification-title">New User Registration</div>
-          <div class="notification-text">2 new users registered today</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- notifications section removed -->
 </div>
