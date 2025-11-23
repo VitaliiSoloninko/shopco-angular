@@ -14,6 +14,11 @@ export class SidebarComponent {
 
   menuItems = [
     {
+      routerLink: 'dashboard',
+      icon: '/images/svg/admin/dashboard.svg',
+      linkText: 'Dashboard',
+    },
+    {
       routerLink: 'products',
       icon: '/images/svg/admin/shirt.svg',
       linkText: 'Products',
@@ -39,11 +44,6 @@ export class SidebarComponent {
       linkText: 'Orders',
     },
     {
-      routerLink: 'dashboard',
-      icon: '/images/svg/admin/dashboard.svg',
-      linkText: 'Dashboard',
-    },
-    {
       routerLink: 'settings',
       icon: '/images/svg/admin/settings.svg',
       linkText: 'Settings',
@@ -52,11 +52,6 @@ export class SidebarComponent {
       routerLink: '/',
       icon: '/images/svg/admin/house.svg',
       linkText: 'Home page',
-    },
-    {
-      routerLink: '/catalog',
-      icon: '/images/svg/admin/shop.svg',
-      linkText: 'Catalog page',
     },
   ];
 

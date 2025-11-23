@@ -13,6 +13,13 @@ A modern e-commerce web application built with Angular 20, featuring a complete 
 - **Build Tool**: @angular/build
 - **Deployment**: Firebase Hosting
 
+## 🛠️ Version 1.1 (Full Frontend part) 16 pages
+
+- **SHOP**: Home, Catalog, Cart, Checkout, Payment, Success
+- **AUTH**: Login, Register
+- **USER**: Profile, Edit profile
+- **ADMIN**: Dashboard, Products, Brands, Types, Users, Orders
+
 ## ✨ Features
 
 - **Product Catalog**: Browse products with filtering by brand, type, and search
