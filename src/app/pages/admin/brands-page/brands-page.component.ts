@@ -1,33 +1,45 @@
-import { Component } from '@angular/core';
-import { BRANDS } from '../../../data/brands.data';
+import { Component, inject, OnInit } from '@angular/core';
+import { BrandService } from '../../../entities/brand/api/brand.service';
+import { Brand } from '../../../entities/brand/model/brand';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
-import { AdminAddButtonComponent } from '../../../shared/ui/admin-add-button/admin-add-button.component';
 import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 
 @Component({
   selector: 'app-brands-page',
-  imports: [
-    GrayLineComponent,
-    AdminEntityListComponent,
-    AdminAddButtonComponent,
-  ],
+  imports: [GrayLineComponent, AdminEntityListComponent],
   templateUrl: './brands-page.component.html',
   styleUrl: './brands-page.component.scss',
 })
-export class BrandsPageComponent {
-  brands: AdminEntity[] = [...BRANDS];
+export class BrandsPageComponent implements OnInit {
+  brands: Brand[] = [];
+  adminEntities: AdminEntity[] = [];
+  brandService = inject(BrandService);
+  loading = false;
 
-  onEditBrand(brand: AdminEntity) {
-    console.log('Edit brand:', brand);
+  ngOnInit() {
+    this.loadBrands();
+  }
+
+  loadBrands() {
+    this.loading = true;
+    this.brandService.getBrands().subscribe({
+      next: (brands) => {
+        this.brands = brands;
+        this.adminEntities = brands.map((b) => ({ id: b.id!, name: b.name }));
+      },
+      error: () => {},
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 
   onDeleteBrand(brandId: number) {
-    this.brands = this.brands.filter((brand) => brand.id !== brandId);
-    console.log('Delete brand with id:', brandId);
-  }
-
-  onAddBrand() {
-    console.log('Add new brand');
+    if (confirm('Delete this brand?')) {
+      this.brandService.deleteBrand(brandId.toString()).subscribe(() => {
+        this.loadBrands();
+      });
+    }
   }
 }

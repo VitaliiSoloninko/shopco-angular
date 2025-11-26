@@ -1,18 +1,15 @@
 <div class="brands-page">
   <div class="page-header">
     <h1 class="h1">Brands</h1>
+    <button class="add-button">
+      <img src="/images/svg/admin/plus.svg" alt="Add Brand" />
+    </button>
   </div>
 
   <app-gray-line></app-gray-line>
 
   <app-admin-entity-list
-    [items]="brands"
-    (edit)="onEditBrand($event)"
+    [items]="adminEntities"
     (delete)="onDeleteBrand($event)"
   ></app-admin-entity-list>
-
-  <app-admin-add-button
-    ariaLabel="Add new brand"
-    (click)="onAddBrand()"
-  ></app-admin-add-button>
 </div>

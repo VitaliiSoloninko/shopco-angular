@@ -1,16 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { Order, ORDERS, OrderStatus } from '../../../data/orders.data';
-import { AdminAddButtonComponent } from '../../../shared/ui/admin-add-button/admin-add-button.component';
 import { AdminOrderCardComponent } from '../../../shared/ui/admin-order-card/admin-order-card.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 
 @Component({
   selector: 'app-orders-page',
-  imports: [
-    GrayLineComponent,
-    AdminOrderCardComponent,
-    AdminAddButtonComponent,
-  ],
+  imports: [GrayLineComponent, AdminOrderCardComponent],
   templateUrl: './orders-page.component.html',
   styleUrl: './orders-page.component.scss',
 })

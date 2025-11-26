@@ -1,17 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { PRODUCTS_DATA } from '../../../data/products.data';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
-import { AdminAddButtonComponent } from '../../../shared/ui/admin-add-button/admin-add-button.component';
+
 import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 
 @Component({
   selector: 'app-products-page',
-  imports: [
-    GrayLineComponent,
-    AdminEntityListComponent,
-    AdminAddButtonComponent,
-  ],
+  imports: [GrayLineComponent, AdminEntityListComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.scss',
 })

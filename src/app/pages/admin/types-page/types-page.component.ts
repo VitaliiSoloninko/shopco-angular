@@ -1,17 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
-import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
-import { AdminAddButtonComponent } from '../../../shared/ui/admin-add-button/admin-add-button.component';
-import { AdminEntity } from '../../../shared/models/admin-entity.model';
 import { TYPES } from '../../../data/types.data';
+import { AdminEntity } from '../../../shared/models/admin-entity.model';
+import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
+import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 
 @Component({
   selector: 'app-types-page',
-  imports: [
-    GrayLineComponent,
-    AdminEntityListComponent,
-    AdminAddButtonComponent,
-  ],
+  imports: [GrayLineComponent, AdminEntityListComponent],
   templateUrl: './types-page.component.html',
   styleUrl: './types-page.component.scss',
 })
