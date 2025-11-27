@@ -21,7 +21,7 @@ export class BrandService {
   }
 
   updateBrand(id: string, brand: BrandUpdateDto): Observable<Brand> {
-    return this.http.put<Brand>(`${BRANDS_URL}/${id}`, brand);
+    return this.http.patch<Brand>(`${BRANDS_URL}/${id}`, brand);
   }
 
   deleteBrand(id: string): Observable<void> {
