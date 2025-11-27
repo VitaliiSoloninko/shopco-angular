@@ -8,11 +8,19 @@
 
   <app-gray-line></app-gray-line>
 
-  <app-admin-entity-list
-    [items]="adminEntities"
-    (edit)="onEditBrand($event)"
-    (delete)="onDeleteBrand($event)"
-  ></app-admin-entity-list>
+  <ng-container *ngIf="loading; else listOrEmpty">
+    <app-loader></app-loader>
+  </ng-container>
+  <ng-template #listOrEmpty>
+    <app-admin-entity-list
+      [items]="adminEntities"
+      (edit)="onEditBrand($event)"
+      (delete)="onDeleteBrand($event)"
+    ></app-admin-entity-list>
+    <div *ngIf="!loading && adminEntities.length === 0" class="empty-state">
+      <p>No items found</p>
+    </div>
+  </ng-template>
 </div>
 
 <app-modal

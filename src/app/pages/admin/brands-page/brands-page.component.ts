@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrandService } from '../../../entities/brand/api/brand.service';
@@ -5,11 +6,18 @@ import { Brand } from '../../../entities/brand/model/brand';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
 import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
+import { LoaderComponent } from '../../../shared/ui/loader/loader.component';
 import { ModalComponent } from '../../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-brands-page',
-  imports: [GrayLineComponent, AdminEntityListComponent, ModalComponent],
+  imports: [
+    CommonModule,
+    GrayLineComponent,
+    AdminEntityListComponent,
+    ModalComponent,
+    LoaderComponent,
+  ],
   templateUrl: './brands-page.component.html',
   styleUrl: './brands-page.component.scss',
 })
