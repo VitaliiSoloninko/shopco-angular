@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BrandService } from '../../../entities/brand/api/brand.service';
 import { Brand } from '../../../entities/brand/model/brand';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
@@ -15,6 +16,7 @@ export class BrandsPageComponent implements OnInit {
   brands: Brand[] = [];
   adminEntities: AdminEntity[] = [];
   brandService = inject(BrandService);
+  router = inject(Router);
   loading = false;
 
   ngOnInit() {
@@ -41,5 +43,13 @@ export class BrandsPageComponent implements OnInit {
         this.loadBrands();
       });
     }
+  }
+
+  onAddBrand() {
+    this.router.navigate(['admin/brands/create']);
+  }
+
+  onEditBrand(entity: AdminEntity) {
+    this.router.navigate(['admin/brands/edit', entity.id]);
   }
 }

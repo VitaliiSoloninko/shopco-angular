@@ -8,6 +8,13 @@ input {
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   transition: box-shadow 0.3s ease;
+  max-width: 450px;
+}
+
+@media (max-width: 768px) {
+  input {
+    max-width: 100%;
+  }
 }
 
 input::placeholder {

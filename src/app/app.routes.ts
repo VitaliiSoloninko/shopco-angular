@@ -3,6 +3,8 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 
 import { AdminComponent } from './pages/admin/admin.component';
+import { BrandCreatePageComponent } from './pages/admin/brand-create-page/brand-create-page.component';
+import { BrandEditPageComponent } from './pages/admin/brand-edit-page/brand-edit-page.component';
 import { BrandsPageComponent } from './pages/admin/brands-page/brands-page.component';
 import { DashboardPageComponent } from './pages/admin/dashboard-page/dashboard-page.component';
 import { OrdersPageComponent } from './pages/admin/orders-page/orders-page.component';
@@ -55,6 +57,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardPageComponent },
       { path: 'products', component: ProductsPageComponent },
       { path: 'brands', component: BrandsPageComponent },
+      { path: 'brands/create', component: BrandCreatePageComponent },
+      { path: 'brands/edit/:id', component: BrandEditPageComponent },
       { path: 'types', component: TypesPageComponent },
       { path: 'users', component: UsersPageComponent },
       { path: 'orders', component: OrdersPageComponent },

@@ -1,8 +1,8 @@
 <div class="brands-page">
   <div class="page-header">
     <h1 class="h1">Brands</h1>
-    <button class="add-button">
-      <img src="/images/svg/admin/plus.svg" alt="Add Brand" />
+    <button class="add-button" (click)="onAddBrand()">
+      <img src="/images/svg/admin/plus.svg" alt="Add" />
     </button>
   </div>
 
@@ -10,6 +10,7 @@
 
   <app-admin-entity-list
     [items]="adminEntities"
+    (edit)="onEditBrand($event)"
     (delete)="onDeleteBrand($event)"
   ></app-admin-entity-list>
 </div>

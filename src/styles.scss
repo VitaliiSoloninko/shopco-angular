@@ -113,7 +113,8 @@ button {
 }
 
 .btn {
-  width: 450px;
+  max-width: 450px;
+  width: 100%;
   height: 56px;
   border: none;
   background-color: var(--primary-color);
@@ -124,14 +125,9 @@ button {
   cursor: pointer;
   border-radius: 10px;
   transition: all 0.3s ease 0s;
-  @media (max-width: 1024px) {
-    width: 340px;
-  }
+
   @media (max-width: 768px) {
-    width: 450px;
-  }
-  @media (max-width: 480px) {
-    width: 80dvw;
+    max-width: 100%;
   }
 
   &:hover,

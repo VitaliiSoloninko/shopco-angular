@@ -1,0 +1,23 @@
+<h1 class="h1">Create brand</h1>
+<app-gray-line></app-gray-line>
+
+<form [formGroup]="brandForm" (ngSubmit)="submit()">
+  <div class="control">
+    <label for="brand-name">Name</label>
+    <app-text-input
+      [control]="fc.name"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Brand name"
+    />
+  </div>
+
+  @if(error){
+  <div class="form-error">{{ error }}</div>
+  }
+
+  <button class="btn" [disabled]="isLoading || brandForm.invalid">
+    @if (!isLoading) {<span>Save</span>} @if (isLoading)
+    {<span>Saving...</span>}
+  </button>
+</form>

@@ -14,7 +14,6 @@ import { InputValidationComponent } from '../input-validation/input-validation.c
 })
 export class TextInputComponent {
   control = input.required<AbstractControl>();
-
   showErrorsWhen = input<boolean>(true);
   label = input<string>('');
   type = input<'text' | 'password' | 'email'>('text');
