@@ -51,7 +51,7 @@ export class BrandEditPageComponent implements OnInit {
           this.brandForm.patchValue({ name: brand.name });
         },
         error: () => {
-          this.error = 'Ошибка загрузки бренда';
+          this.error = 'Error loading brand';
         },
         complete: () => {
           this.isLoading = false;
@@ -69,7 +69,7 @@ export class BrandEditPageComponent implements OnInit {
     this.brandService.updateBrand(this.brandId, dto).subscribe({
       next: () => this.router.navigate(['/admin/brands']),
       error: () => {
-        this.error = 'Ошибка при обновлении бренда';
+        this.error = 'Cannot update brand, maybe it already exists';
         this.isLoading = false;
       },
       complete: () => (this.isLoading = false),

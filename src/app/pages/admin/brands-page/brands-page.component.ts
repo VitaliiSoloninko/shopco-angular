@@ -5,10 +5,11 @@ import { Brand } from '../../../entities/brand/model/brand';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
 import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
+import { ModalComponent } from '../../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-brands-page',
-  imports: [GrayLineComponent, AdminEntityListComponent],
+  imports: [GrayLineComponent, AdminEntityListComponent, ModalComponent],
   templateUrl: './brands-page.component.html',
   styleUrl: './brands-page.component.scss',
 })
@@ -18,6 +19,8 @@ export class BrandsPageComponent implements OnInit {
   brandService = inject(BrandService);
   router = inject(Router);
   loading = false;
+  showConfirm = false;
+  brandIdToDelete: number | null = null;
 
   ngOnInit() {
     this.loadBrands();
@@ -38,11 +41,25 @@ export class BrandsPageComponent implements OnInit {
   }
 
   onDeleteBrand(brandId: number) {
-    if (confirm('Delete this brand?')) {
-      this.brandService.deleteBrand(brandId.toString()).subscribe(() => {
-        this.loadBrands();
-      });
+    this.brandIdToDelete = brandId;
+    this.showConfirm = true;
+  }
+
+  onConfirm() {
+    if (this.brandIdToDelete !== null) {
+      this.brandService
+        .deleteBrand(this.brandIdToDelete.toString())
+        .subscribe(() => {
+          this.loadBrands();
+          this.showConfirm = false;
+          this.brandIdToDelete = null;
+        });
     }
+  }
+
+  onCancel() {
+    this.showConfirm = false;
+    this.brandIdToDelete = null;
   }
 
   onAddBrand() {
