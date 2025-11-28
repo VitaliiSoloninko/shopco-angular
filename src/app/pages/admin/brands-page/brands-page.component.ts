@@ -8,6 +8,7 @@ import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/a
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { LoaderComponent } from '../../../shared/ui/loader/loader.component';
 import { ModalComponent } from '../../../shared/ui/modal/modal.component';
+import { AddButtonComponent } from '../../../shared/ui/add-button/add-button.component';
 
 @Component({
   selector: 'app-brands-page',
@@ -17,6 +18,7 @@ import { ModalComponent } from '../../../shared/ui/modal/modal.component';
     AdminEntityListComponent,
     ModalComponent,
     LoaderComponent,
+    AddButtonComponent,
   ],
   templateUrl: './brands-page.component.html',
   styleUrl: './brands-page.component.scss',
