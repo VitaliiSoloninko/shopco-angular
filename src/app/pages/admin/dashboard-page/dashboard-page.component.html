@@ -5,13 +5,6 @@
 
   <div class="stats-grid">
     <app-admin-dashboard-card
-      title="Products"
-      [value]="stats().totalProducts"
-      icon="/images/svg/admin/shirt.svg"
-      color="#f59e0b"
-    ></app-admin-dashboard-card>
-
-    <app-admin-dashboard-card
       title="Brands"
       [value]="stats().totalBrands"
       icon="/images/svg/admin/shop.svg"
@@ -23,6 +16,13 @@
       [value]="stats().totalTypes"
       icon="/images/svg/admin/type.svg"
       color="#0ea5e9"
+    ></app-admin-dashboard-card>
+
+    <app-admin-dashboard-card
+      title="Products"
+      [value]="stats().totalProducts"
+      icon="/images/svg/admin/shirt.svg"
+      color="#f59e0b"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card

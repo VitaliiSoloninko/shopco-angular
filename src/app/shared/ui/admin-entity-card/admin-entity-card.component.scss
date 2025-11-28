@@ -30,6 +30,11 @@
   line-height: 1.4;
 }
 
+.entity-id {
+  color: var(--grey-dark-color);
+  margin-top: 0.25rem;
+}
+
 .entity-actions {
   display: flex;
   gap: 0.5rem;
