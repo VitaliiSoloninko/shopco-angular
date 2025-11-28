@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BRANDS_URL } from '../../../urls';
 import { Brand, BrandCreateDto, BrandUpdateDto } from '../model/brand';
 
@@ -26,5 +27,9 @@ export class BrandService {
 
   deleteBrand(id: string): Observable<void> {
     return this.http.delete<void>(`${BRANDS_URL}/${id}`);
+  }
+
+  getBrandsCount(): Observable<number> {
+    return this.getBrands().pipe(map((brands: Brand[]) => brands.length));
   }
 }

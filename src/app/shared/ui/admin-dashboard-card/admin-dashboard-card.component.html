@@ -1,11 +1,17 @@
-<div class="dashboard-card" [style.borderLeft]="'4px solid ' + color()">
-  <div class="dashboard-content">
-    <div class="dashboard-header">
-      <h3 class="dashboard-title">{{ title() }}</h3>
-      <div class="dashboard-icon" [style.backgroundColor]="color() + '20'">
-        <img [src]="icon()" [alt]="title()" />
+<a
+  [routerLink]="routerLink()"
+  class="dashboard-card-link"
+  [class.no-link]="!routerLink()"
+>
+  <div class="dashboard-card" [style.borderLeft]="'4px solid ' + color()">
+    <div class="dashboard-content">
+      <div class="dashboard-header">
+        <h3 class="dashboard-title">{{ title() }}</h3>
+        <div class="dashboard-icon" [style.backgroundColor]="color() + '20'">
+          <img [src]="icon()" [alt]="title()" />
+        </div>
       </div>
+      <div class="dashboard-value">{{ value() }}</div>
     </div>
-    <div class="dashboard-value">{{ value() }}</div>
   </div>
-</div>
+</a>

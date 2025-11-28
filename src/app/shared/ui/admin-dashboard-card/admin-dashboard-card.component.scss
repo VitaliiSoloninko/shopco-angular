@@ -1,3 +1,19 @@
+.dashboard-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card-link:hover:not(.no-link) {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.dashboard-card-link.no-link {
+  cursor: default;
+}
+
 .dashboard-card {
   border-radius: 20px;
   padding: 1.5rem;
@@ -6,8 +22,7 @@
   height: 100%;
 }
 
-.dashboard-card:hover {
-  transform: translateY(-2px);
+.dashboard-card-link:hover:not(.no-link) .dashboard-card {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
