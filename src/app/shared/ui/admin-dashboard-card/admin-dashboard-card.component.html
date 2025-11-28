@@ -6,19 +6,6 @@
         <img [src]="icon()" [alt]="title()" />
       </div>
     </div>
-
     <div class="dashboard-value">{{ value() }}</div>
-
-    @if (trend()) {
-    <div
-      class="dashboard-trend"
-      [class.positive]="trend()?.isPositive"
-      [class.negative]="!trend()?.isPositive"
-    >
-      <span class="trend-arrow">{{ trend()?.isPositive ? "↗" : "↘" }}</span>
-      <span class="trend-value">{{ Math.abs(trend()?.value || 0) }}%</span>
-      <span class="trend-text">vs last month</span>
-    </div>
-    }
   </div>
 </div>

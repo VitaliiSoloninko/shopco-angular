@@ -5,47 +5,44 @@
 
   <div class="stats-grid">
     <app-admin-dashboard-card
-      title="Total Products"
+      title="Products"
       [value]="stats().totalProducts"
       icon="/images/svg/admin/shirt.svg"
       color="#f59e0b"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Brands"
+      title="Brands"
       [value]="stats().totalBrands"
       icon="/images/svg/admin/shop.svg"
       color="#e11d48"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Types"
+      title="Types"
       [value]="stats().totalTypes"
       icon="/images/svg/admin/type.svg"
       color="#0ea5e9"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Users"
+      title="Users"
       [value]="stats().totalUsers"
       icon="/images/svg/admin/users.svg"
-      [trend]="{ value: 3.1, isPositive: false }"
       color="#8b5cf6"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Orders"
+      title="Orders"
       [value]="stats().totalOrders"
       icon="/images/svg/admin/list-ordered.svg"
-      [trend]="{ value: 8.2, isPositive: true }"
       color="#3b82f6"
     ></app-admin-dashboard-card>
 
     <app-admin-dashboard-card
-      title="Total Revenue"
+      title="Revenue"
       [value]="'$' + stats().totalRevenue"
       icon="/images/svg/basket.svg"
-      [trend]="{ value: 12.5, isPositive: true }"
       color="#10b981"
     ></app-admin-dashboard-card>
   </div>
