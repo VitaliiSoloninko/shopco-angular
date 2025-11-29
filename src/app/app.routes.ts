@@ -10,6 +10,8 @@ import { DashboardPageComponent } from './pages/admin/dashboard-page/dashboard-p
 import { OrdersPageComponent } from './pages/admin/orders-page/orders-page.component';
 import { ProductsPageComponent } from './pages/admin/products-page/products-page.component';
 import { SettingsPageComponent } from './pages/admin/settings-page/settings-page.component';
+import { TypeCreatePageComponent } from './pages/admin/type-create-page/type-create-page.component';
+import { TypeEditPageComponent } from './pages/admin/type-edit-page/type-edit-page.component';
 import { TypesPageComponent } from './pages/admin/types-page/types-page.component';
 import { UsersPageComponent } from './pages/admin/users-page/users-page.component';
 import { LoginPageComponent } from './pages/auth/login-page/login-page.component';
@@ -60,6 +62,8 @@ export const routes: Routes = [
       { path: 'brands/create', component: BrandCreatePageComponent },
       { path: 'brands/edit/:id', component: BrandEditPageComponent },
       { path: 'types', component: TypesPageComponent },
+      { path: 'types/create', component: TypeCreatePageComponent },
+      { path: 'types/edit/:id', component: TypeEditPageComponent },
       { path: 'users', component: UsersPageComponent },
       { path: 'orders', component: OrdersPageComponent },
       { path: 'settings', component: SettingsPageComponent },

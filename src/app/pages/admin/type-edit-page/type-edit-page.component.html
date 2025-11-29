@@ -1,0 +1,23 @@
+<h1 class="h1">Edit type</h1>
+<app-gray-line></app-gray-line>
+
+<form class="form-login" [formGroup]="typeForm" (ngSubmit)="submit()">
+  <div class="control">
+    <label for="type-name">Name</label>
+    <app-text-input
+      [control]="fc.name"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Type name"
+    />
+  </div>
+
+  @if(error){
+  <div class="form-error">{{ error }}</div>
+  }
+
+  <button class="btn login" [disabled]="isLoading || typeForm.invalid">
+    @if (!isLoading) {<span>Save</span>} @if (isLoading)
+    {<span>Saving...</span>}
+  </button>
+</form>
