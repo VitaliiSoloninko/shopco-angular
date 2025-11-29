@@ -38,6 +38,30 @@ export interface UpdateUserDto {
   country?: string;
 }
 
+export interface AdminCreateUserDto {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  street?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  role: 'user' | 'admin';
+  isActive: boolean;
+}
+
+export interface AdminUpdateUserDto {
+  firstName?: string;
+  lastName?: string;
+  street?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  role?: 'user' | 'admin';
+  isActive?: boolean;
+}
+
 export interface UserProfile {
   id: number;
   email: string;

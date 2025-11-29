@@ -13,6 +13,8 @@ import { SettingsPageComponent } from './pages/admin/settings-page/settings-page
 import { TypeCreatePageComponent } from './pages/admin/type-create-page/type-create-page.component';
 import { TypeEditPageComponent } from './pages/admin/type-edit-page/type-edit-page.component';
 import { TypesPageComponent } from './pages/admin/types-page/types-page.component';
+import { UserCreatePageComponent } from './pages/admin/user-create-page/user-create-page.component';
+import { UserEditPageComponent } from './pages/admin/user-edit-page/user-edit-page.component';
 import { UsersPageComponent } from './pages/admin/users-page/users-page.component';
 import { LoginPageComponent } from './pages/auth/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/auth/register-page/register-page.component';
@@ -65,6 +67,8 @@ export const routes: Routes = [
       { path: 'types/create', component: TypeCreatePageComponent },
       { path: 'types/edit/:id', component: TypeEditPageComponent },
       { path: 'users', component: UsersPageComponent },
+      { path: 'users/create', component: UserCreatePageComponent },
+      { path: 'users/edit/:id', component: UserEditPageComponent },
       { path: 'orders', component: OrdersPageComponent },
       { path: 'settings', component: SettingsPageComponent },
     ],

@@ -1,0 +1,78 @@
+<h1 class="h1">Edit user</h1>
+<app-gray-line></app-gray-line>
+
+<form class="form-login" [formGroup]="userForm" (ngSubmit)="submit()">
+  <div class="form-grid">
+    <div class="control">
+      <app-text-input
+        [control]="fc.email"
+        [showErrorsWhen]="isSubmitted"
+        type="email"
+        label="Email (read-only)"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.firstName"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="First Name"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.lastName"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="Last Name"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.street"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="Street"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.city"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="City"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.postalCode"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="Postal Code"
+      />
+    </div>
+
+    <div class="control">
+      <app-text-input
+        [control]="fc.country"
+        [showErrorsWhen]="isSubmitted"
+        type="text"
+        label="Country"
+      />
+    </div>
+  </div>
+
+  @if(error){
+  <div class="form-error">{{ error }}</div>
+  }
+
+  <button class="btn login" [disabled]="isLoading || userForm.invalid">
+    @if (!isLoading) {<span>Save</span>} @if (isLoading)
+    {<span>Saving...</span>}
+  </button>
+</form>

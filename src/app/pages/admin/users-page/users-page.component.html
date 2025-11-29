@@ -1,13 +1,30 @@
 <div class="users-page">
   <div class="page-header">
     <h1 class="h1">Users</h1>
+    <app-add-button (onClick)="onAddUser()"></app-add-button>
   </div>
 
   <app-gray-line></app-gray-line>
 
+  @if (loading) {
+  <app-loader></app-loader>
+  } @else {
   <app-admin-entity-list
-    [items]="users()"
+    [items]="adminEntities"
     (edit)="onEditUser($event)"
     (delete)="onDeleteUser($event)"
   ></app-admin-entity-list>
+  }
 </div>
+
+<app-modal
+  [isOpen]="showConfirm"
+  title="Delete USER"
+  type="confirm"
+  (close)="showConfirm = false"
+  (confirm)="onConfirm()"
+  (cancel)="onCancel()"
+>
+  <p>Do you want to delete user?</p>
+  <p><strong>This action cannot be undone.</strong></p>
+</app-modal>

@@ -1,0 +1,50 @@
+.form-error {
+  color: var(--red-color);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+}
+
+.control label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.select-input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.checkbox-control {
+  grid-column: span 2;
+}
+
+.checkbox-control label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.checkbox-control input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}

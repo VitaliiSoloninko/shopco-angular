@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { CreateUserDto } from '../../../data/users.data';
 import { PROFILE_URL, USERS_URL } from '../../../urls';
 import { UpdateUserDto, User, UserProfile } from '../model';
 
@@ -18,7 +19,7 @@ export class UserService {
 
   updateProfile(updateData: UpdateUserDto): Observable<UserProfile> {
     return this.http
-      .put<User>(PROFILE_URL, updateData)
+      .patch<User>(PROFILE_URL, updateData)
       .pipe(map((user) => this.mapUserToProfile(user)));
   }
 
@@ -41,10 +42,35 @@ export class UserService {
   }
 
   /**
+   * Create user (admin only)
+   */
+  createUser(userData: CreateUserDto): Observable<UserProfile> {
+    return this.http
+      .post<User>(USERS_URL, userData)
+      .pipe(map((user) => this.mapUserToProfile(user)));
+  }
+
+  /**
+   * Update user (admin only)
+   */
+  updateUser(id: number, userData: UpdateUserDto): Observable<UserProfile> {
+    return this.http
+      .patch<User>(`${USERS_URL}/${id}`, userData)
+      .pipe(map((user) => this.mapUserToProfile(user)));
+  }
+
+  /**
    * Delete user (admin only)
    */
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${USERS_URL}/${id}`);
+  }
+
+  /**
+   * Get users count (admin only)
+   */
+  getUsersCount(): Observable<number> {
+    return this.getAllUsers().pipe(map((users) => users.length));
   }
 
   /**
