@@ -43,7 +43,7 @@ export class UsersPageComponent implements OnInit {
         this.users = users;
         this.adminEntities = users.map((u) => ({
           id: u.id,
-          name: `${u.fullName} (${u.email})`,
+          name: u.fullName,
         }));
       },
       error: () => {},

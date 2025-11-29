@@ -5,6 +5,7 @@ import { PRODUCTS_DATA } from '../../../data/products.data';
 import { USERS } from '../../../data/users.data';
 import { BrandService } from '../../../entities/brand/api/brand.service';
 import { TypeService } from '../../../entities/type/api/type.service';
+import { UserService } from '../../../entities/user/api';
 import { AdminDashboardCardComponent } from '../../../shared/ui/admin-dashboard-card/admin-dashboard-card.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 
@@ -26,9 +27,11 @@ export class DashboardPageComponent {
 
   private brandService = inject(BrandService);
   private typeService = inject(TypeService);
+  private userService = inject(UserService);
 
   totalBrands;
   totalTypes;
+  totalUsers;
 
   constructor() {
     this.totalBrands = toSignal(this.brandService.getBrandsCount(), {
@@ -45,6 +48,14 @@ export class DashboardPageComponent {
     effect(() => {
       const count: number = this.totalTypes();
       this.stats.update((s) => ({ ...s, totalTypes: count }));
+    });
+
+    this.totalUsers = toSignal(this.userService.getUsersCount(), {
+      initialValue: 0,
+    });
+    effect(() => {
+      const count: number = this.totalUsers();
+      this.stats.update((s) => ({ ...s, totalUsers: count }));
     });
   }
 
