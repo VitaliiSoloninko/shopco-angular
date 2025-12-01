@@ -1,9 +1,9 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ORDERS } from '../../../data/orders.data';
-import { PRODUCTS_DATA } from '../../../data/products.data';
 import { USERS } from '../../../data/users.data';
 import { BrandService } from '../../../entities/brand/api/brand.service';
+import { ProductService } from '../../../entities/product/api/product.service';
 import { TypeService } from '../../../entities/type/api/type.service';
 import { UserService } from '../../../entities/user/api';
 import { AdminDashboardCardComponent } from '../../../shared/ui/admin-dashboard-card/admin-dashboard-card.component';
@@ -17,7 +17,7 @@ import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.compon
 })
 export class DashboardPageComponent {
   stats = signal({
-    totalProducts: PRODUCTS_DATA.rows.length,
+    totalProducts: 0,
     totalBrands: 0,
     totalTypes: 0,
     totalUsers: USERS.length,
@@ -26,10 +26,12 @@ export class DashboardPageComponent {
   });
 
   private brandService = inject(BrandService);
+  private productService = inject(ProductService);
   private typeService = inject(TypeService);
   private userService = inject(UserService);
 
   totalBrands;
+  totalProducts;
   totalTypes;
   totalUsers;
 
@@ -40,6 +42,14 @@ export class DashboardPageComponent {
     effect(() => {
       const count: number = this.totalBrands();
       this.stats.update((s) => ({ ...s, totalBrands: count }));
+    });
+
+    this.totalProducts = toSignal(this.productService.getProductsCount(), {
+      initialValue: 0,
+    });
+    effect(() => {
+      const count: number = this.totalProducts();
+      this.stats.update((s) => ({ ...s, totalProducts: count }));
     });
 
     this.totalTypes = toSignal(this.typeService.getTypesCount(), {
