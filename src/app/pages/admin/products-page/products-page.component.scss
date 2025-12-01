@@ -3,6 +3,12 @@
   min-height: 90vh;
 }
 
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .products-page {

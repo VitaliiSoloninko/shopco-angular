@@ -77,7 +77,8 @@
   }
 }
 
-.control select {
+.control select,
+.form-select {
   display: flex;
   width: 100%;
   padding: 0.5rem 0.8rem;
@@ -87,6 +88,19 @@
   border: 1px solid var(--dark-color);
   background-color: transparent;
   color: var(--dark-color);
+}
+
+.error {
+  color: var(--red-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.form-error {
+  color: var(--red-color);
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+  text-align: center;
 }
 
 .control-error {

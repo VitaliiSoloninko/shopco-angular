@@ -1,13 +1,30 @@
 <div class="products-page">
   <div class="page-header">
     <h1 class="h1">Products</h1>
+    <app-add-button (onClick)="onAddProduct()"></app-add-button>
   </div>
 
   <app-gray-line></app-gray-line>
 
+  @if (loading) {
+  <app-loader></app-loader>
+  } @else {
   <app-admin-entity-list
-    [items]="products()"
+    [items]="adminEntities"
     (edit)="onEditProduct($event)"
     (delete)="onDeleteProduct($event)"
   ></app-admin-entity-list>
+  }
 </div>
+
+<app-modal
+  [isOpen]="showConfirm"
+  title="Delete PRODUCT"
+  type="confirm"
+  (close)="showConfirm = false"
+  (confirm)="onConfirm()"
+  (cancel)="onCancel()"
+>
+  <p>Do you want to delete product?</p>
+  <p><strong>This action cannot be undone.</strong></p>
+</app-modal>

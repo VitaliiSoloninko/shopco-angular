@@ -1,0 +1,99 @@
+<h1 class="h1">Edit product</h1>
+<app-gray-line></app-gray-line>
+
+<form class="form-login" [formGroup]="productForm" (ngSubmit)="submit()">
+  <div class="control">
+    <label for="product-name">Product name</label>
+    <app-text-input
+      [control]="fc.name"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Product name"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-price">Price</label>
+    <app-text-input
+      [control]="fc.price"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Price"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-rating">Rating</label>
+    <app-text-input
+      [control]="fc.rating"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Rating"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-img">Image URL</label>
+    <app-text-input
+      [control]="fc.img"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Image URL"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-oldPrice">Old Price (optional)</label>
+    <app-text-input
+      [control]="fc.oldPrice"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Old Price"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-discount">Discount % (optional)</label>
+    <app-text-input
+      [control]="fc.discount"
+      [showErrorsWhen]="isSubmitted"
+      type="text"
+      label="Discount %"
+    />
+  </div>
+
+  <div class="control">
+    <label for="product-type">Type</label>
+    <select [formControl]="fc.typeId" class="form-select">
+      <option value="">Select type</option>
+      @for (type of types; track type.id) {
+      <option [value]="type.id">{{ type.name }}</option>
+      }
+    </select>
+    @if (isSubmitted && fc.typeId.invalid) {
+    <div class="error">Type is required</div>
+    }
+  </div>
+
+  <div class="control">
+    <label for="product-brand">Brand</label>
+    <select [formControl]="fc.brandId" class="form-select">
+      <option value="">Select brand</option>
+      @for (brand of brands; track brand.id) {
+      <option [value]="brand.id">{{ brand.name }}</option>
+      }
+    </select>
+    @if (isSubmitted && fc.brandId.invalid) {
+    <div class="error">Brand is required</div>
+    }
+  </div>
+
+  @if(error){
+  <div class="form-error">{{ error }}</div>
+  }
+
+  <button class="btn login" [disabled]="isLoading || productForm.invalid">
+    @if (!isLoading) {<span>Save</span>} @if (isLoading)
+    {<span>Saving...</span>}
+  </button>
+</form>

@@ -1,13 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BRANDS } from '../../../data/brands.data';
 import { PRODUCTS_DATA } from '../../../data/products.data';
 import { TYPES } from '../../../data/types.data';
-import { Product } from '../model/product';
+import { PRODUCTS_URL } from '../../../urls';
+import {
+  Product,
+  ProductCreateDto,
+  ProductUpdateDto,
+  ProductsResponse,
+} from '../model/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
+  constructor(private http: HttpClient) {}
+
+  // API methods for CRUD operations
+  createProduct(product: ProductCreateDto): Observable<Product> {
+    return this.http.post<Product>(PRODUCTS_URL, product);
+  }
+
+  getProducts(): Observable<ProductsResponse> {
+    return this.http.get<ProductsResponse>(PRODUCTS_URL);
+  }
+
+  getProduct(id: string): Observable<Product> {
+    return this.http.get<Product>(`${PRODUCTS_URL}/${id}`);
+  }
+
+  updateProduct(id: string, product: ProductUpdateDto): Observable<Product> {
+    return this.http.patch<Product>(`${PRODUCTS_URL}/${id}`, product);
+  }
+
+  deleteProduct(id: string): Observable<void> {
+    return this.http.delete<void>(`${PRODUCTS_URL}/${id}`);
+  }
+
+  getProductsCount(): Observable<number> {
+    return this.getProducts().pipe(map((response) => response.total));
+  }
   getAllProducts(): Product[] {
     return PRODUCTS_DATA.rows;
   }

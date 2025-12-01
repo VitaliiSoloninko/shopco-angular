@@ -1,35 +1,88 @@
-import { Component, signal } from '@angular/core';
-import { PRODUCTS_DATA } from '../../../data/products.data';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProductService } from '../../../entities/product/api/product.service';
+import { Product } from '../../../entities/product/model/product';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
-
+import { AddButtonComponent } from '../../../shared/ui/add-button/add-button.component';
 import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
+import { LoaderComponent } from '../../../shared/ui/loader/loader.component';
+import { ModalComponent } from '../../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-products-page',
-  imports: [GrayLineComponent, AdminEntityListComponent],
+  imports: [
+    CommonModule,
+    GrayLineComponent,
+    AdminEntityListComponent,
+    ModalComponent,
+    LoaderComponent,
+    AddButtonComponent,
+  ],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.scss',
 })
-export class ProductsPageComponent {
-  products = signal<AdminEntity[]>(
-    PRODUCTS_DATA.rows.map((product) => ({
-      ...product,
-    }))
-  );
+export class ProductsPageComponent implements OnInit {
+  products: Product[] = [];
+  adminEntities: AdminEntity[] = [];
+  productService = inject(ProductService);
+  router = inject(Router);
+  loading = false;
+  showConfirm = false;
+  productIdToDelete: number | null = null;
 
-  onEditProduct(product: AdminEntity) {
-    console.log('Edit product:', product);
+  ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.loading = true;
+    this.productService.getProducts().subscribe({
+      next: (response) => {
+        console.log('API response:', response); // Debug log
+        this.products = response.products;
+        this.adminEntities = response.products.map((p: Product) => ({
+          id: p.id!,
+          name: p.name,
+        }));
+      },
+      error: (error) => {
+        console.error('Error loading products:', error);
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 
   onDeleteProduct(productId: number) {
-    this.products.update((products) =>
-      products.filter((product) => product.id !== productId)
-    );
-    console.log('Delete product with id:', productId);
+    this.productIdToDelete = productId;
+    this.showConfirm = true;
+  }
+
+  onConfirm() {
+    if (this.productIdToDelete !== null) {
+      this.productService
+        .deleteProduct(this.productIdToDelete.toString())
+        .subscribe(() => {
+          this.loadProducts();
+          this.showConfirm = false;
+          this.productIdToDelete = null;
+        });
+    }
+  }
+
+  onCancel() {
+    this.showConfirm = false;
+    this.productIdToDelete = null;
   }
 
   onAddProduct() {
-    console.log('Add new product');
+    this.router.navigate(['admin/products/create']);
+  }
+
+  onEditProduct(entity: AdminEntity) {
+    this.router.navigate(['admin/products/edit', entity.id]);
   }
 }
