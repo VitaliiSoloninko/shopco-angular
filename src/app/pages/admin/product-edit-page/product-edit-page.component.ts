@@ -12,17 +12,24 @@ import { Brand } from '../../../entities/brand/model/brand';
 import { ProductService } from '../../../entities/product/api/product.service';
 import { TypeService } from '../../../entities/type/api/type.service';
 import { Type } from '../../../entities/type/model/type';
+import { AdminSelectComponent } from '../../../shared/ui/admin-select/admin-select.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
+
+interface SelectOption {
+  value: string | number;
+  label: string;
+}
 
 @Component({
   selector: 'app-product-edit-page',
   standalone: true,
   imports: [
+    CommonModule,
     GrayLineComponent,
     ReactiveFormsModule,
-    CommonModule,
     TextInputComponent,
+    AdminSelectComponent,
   ],
   templateUrl: './product-edit-page.component.html',
   styleUrl: './product-edit-page.component.scss',
@@ -35,6 +42,8 @@ export class ProductEditPageComponent implements OnInit {
   productId: string | null = null;
   types: Type[] = [];
   brands: Brand[] = [];
+  typeOptions: SelectOption[] = [];
+  brandOptions: SelectOption[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -80,14 +89,26 @@ export class ProductEditPageComponent implements OnInit {
 
   loadTypes() {
     this.typeService.getTypes().subscribe({
-      next: (types) => (this.types = types),
+      next: (types) => {
+        this.types = types;
+        this.typeOptions = types.map((type) => ({
+          value: type.id,
+          label: type.name,
+        }));
+      },
       error: () => (this.error = 'Error loading types'),
     });
   }
 
   loadBrands() {
     this.brandService.getBrands().subscribe({
-      next: (brands) => (this.brands = brands),
+      next: (brands) => {
+        this.brands = brands;
+        this.brandOptions = brands.map((brand) => ({
+          value: brand.id,
+          label: brand.name,
+        }));
+      },
       error: () => (this.error = 'Error loading brands'),
     });
   }
@@ -144,5 +165,9 @@ export class ProductEditPageComponent implements OnInit {
       },
       complete: () => (this.isLoading = false),
     });
+  }
+
+  cancel() {
+    this.router.navigate(['/admin/products']);
   }
 }

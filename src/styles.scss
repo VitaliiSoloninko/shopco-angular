@@ -135,3 +135,13 @@ button {
     background-color: var(--primary-color-hover);
   }
 }
+
+.btn-cancel {
+  background-color: var(--grey-light-color);
+  border: 1px solid var(--grey-color);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--grey-light-color-hover);
+  }
+}

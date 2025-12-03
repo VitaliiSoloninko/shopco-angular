@@ -1,1 +1,11 @@
-
+.two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 450px));
+  gap: 1rem;
+  justify-content: center;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

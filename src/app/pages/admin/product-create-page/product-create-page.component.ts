@@ -134,4 +134,8 @@ export class ProductCreatePageComponent implements OnInit {
       complete: () => (this.isLoading = false),
     });
   }
+
+  cancel() {
+    this.router.navigate(['/admin/products']);
+  }
 }

@@ -1,8 +1,8 @@
 <h1 class="h1">Create product</h1>
 <app-gray-line></app-gray-line>
 
-<form [formGroup]="productForm" (ngSubmit)="submit()">
-  <div class="form-two-column">
+<form class="" [formGroup]="productForm" (ngSubmit)="submit()">
+  <div class="two-column">
     <div class="control">
       <label for="product-name">Product name</label>
       <app-text-input
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="form-two-column">
+  <div class="two-column">
     <div class="control">
       <label for="product-price">Price</label>
       <app-text-input
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="form-two-column">
+  <div class="two-column">
     <div class="control">
       <label for="product-discount">Discount % (optional)</label>
       <app-text-input
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div class="form-two-column">
+  <div class="two-column">
     <div class="control">
       <app-admin-select
         label="Type"
@@ -94,8 +94,18 @@
   <div class="form-error">{{ error }}</div>
   }
 
-  <button class="btn" [disabled]="isLoading || productForm.invalid">
-    @if (!isLoading) {<span>Save</span>} @if (isLoading)
-    {<span>Saving...</span>}
-  </button>
+  <div class="two-column mt-24">
+    <button class="btn" [disabled]="isLoading || productForm.invalid">
+      @if (!isLoading) {<span>Save</span>} @if (isLoading)
+      {<span>Saving...</span>}
+    </button>
+    <button
+      type="button"
+      class="btn btn-cancel"
+      (click)="cancel()"
+      [disabled]="isLoading"
+    >
+      Cancel
+    </button>
+  </div>
 </form>
