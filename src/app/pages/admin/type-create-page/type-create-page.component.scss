@@ -1,3 +1,15 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(auto, 450px));
+  gap: 1rem;
+  justify-content: center;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
 .form-error {
   color: var(--red-color);
   font-size: 0.95rem;

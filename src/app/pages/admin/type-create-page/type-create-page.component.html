@@ -1,7 +1,7 @@
 <h1 class="h1">Create type</h1>
 <app-gray-line></app-gray-line>
 
-<form [formGroup]="typeForm" (ngSubmit)="submit()">
+<form class="form" [formGroup]="typeForm" (ngSubmit)="submit()">
   <div class="control">
     <label for="type-name">Create new type</label>
     <app-text-input
@@ -15,6 +15,15 @@
   @if(error){
   <div class="form-error">{{ error }}</div>
   }
+
+  <button
+    type="button"
+    class="btn btn-light"
+    (click)="cancel()"
+    [disabled]="isLoading"
+  >
+    Cancel
+  </button>
 
   <button class="btn" [disabled]="isLoading || typeForm.invalid">
     @if (!isLoading) {<span>Save</span>} @if (isLoading)

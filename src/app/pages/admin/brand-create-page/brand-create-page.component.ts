@@ -49,4 +49,8 @@ export class BrandCreatePageComponent {
       complete: () => (this.isLoading = false),
     });
   }
+
+  cancel() {
+    this.router.navigate(['/admin/brands']);
+  }
 }

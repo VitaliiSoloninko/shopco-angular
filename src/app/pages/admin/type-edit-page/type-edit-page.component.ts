@@ -75,4 +75,8 @@ export class TypeEditPageComponent implements OnInit {
       complete: () => (this.isLoading = false),
     });
   }
+
+  cancel() {
+    this.router.navigate(['/admin/types']);
+  }
 }

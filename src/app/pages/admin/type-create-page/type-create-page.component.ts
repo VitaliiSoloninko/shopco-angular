@@ -49,4 +49,8 @@ export class TypeCreatePageComponent {
       complete: () => (this.isLoading = false),
     });
   }
+
+  cancel() {
+    this.router.navigate(['/admin/types']);
+  }
 }

@@ -145,3 +145,14 @@ button {
     background-color: var(--grey-light-color-hover);
   }
 }
+
+.btn-light {
+  background: #f8f9fa;
+  color: #666;
+  border: 1px solid #dee2e6;
+
+  &:hover,
+  &:focus-visible {
+    background: #e9ecef;
+  }
+}

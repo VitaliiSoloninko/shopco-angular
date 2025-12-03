@@ -1,7 +1,7 @@
 <h1 class="h1">Edit brand</h1>
 <app-gray-line></app-gray-line>
 
-<form class="form-login" [formGroup]="brandForm" (ngSubmit)="submit()">
+<form class="form" [formGroup]="brandForm" (ngSubmit)="submit()">
   <div class="control">
     <label for="brand-name">Name</label>
     <app-text-input
@@ -15,6 +15,15 @@
   @if(error){
   <div class="form-error">{{ error }}</div>
   }
+
+  <button
+    type="button"
+    class="btn btn-light"
+    (click)="cancel()"
+    [disabled]="isLoading"
+  >
+    Cancel
+  </button>
 
   <button class="btn login" [disabled]="isLoading || brandForm.invalid">
     @if (!isLoading) {<span>Save</span>} @if (isLoading)
