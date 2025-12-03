@@ -59,6 +59,11 @@ export class SidebarComponent {
       linkText: 'Test - Empty state',
     },
     {
+      routerLink: 'image-upload-test',
+      icon: '/images/svg/admin/settings.svg',
+      linkText: 'Test - Image Upload',
+    },
+    {
       routerLink: 'settings',
       icon: '/images/svg/admin/settings.svg',
       linkText: 'Test - Settings',

@@ -1,0 +1,76 @@
+<div class="test-page">
+  <div class="container">
+    <h1>Image Upload Component Test</h1>
+
+    <div class="test-section">
+      <h2>Form Integration Test</h2>
+
+      <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="test-form">
+        <div class="form-group">
+          <label for="title">Product Title</label>
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            placeholder="Enter product title"
+            class="form-input"
+          />
+          @if (isSubmitted && fc.title.invalid) {
+          <div class="error">Title is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <app-image-upload
+            [control]="fc.image"
+            [showErrorsWhen]="isSubmitted"
+            label="Product Image"
+            [maxSizeInMB]="5"
+            [acceptedFormats]="['jpg', 'jpeg', 'png', 'gif']"
+            (fileSelected)="onImageSelected($event)"
+            (error)="onImageError($event)"
+          ></app-image-upload>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            Submit Test Form
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="testForm.reset(); isSubmitted = false"
+          >
+            Reset Form
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="test-section">
+      <h2>Component State</h2>
+      <div class="debug-info">
+        <div><strong>Form Valid:</strong> {{ testForm.valid }}</div>
+        <div><strong>Form Submitted:</strong> {{ isSubmitted }}</div>
+        <div>
+          <strong>Image Control Status:</strong>
+          {{ fc.image.value ? "File selected" : "No file selected" }}
+        </div>
+        <div>
+          <strong>Upload Error:</strong> {{ uploadError?.message || "None" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="test-section">
+      <h2>Standalone Component Test</h2>
+      <app-image-upload
+        label="Standalone Upload Test"
+        [maxSizeInMB]="2"
+        [acceptedFormats]="['png', 'jpg']"
+        (fileSelected)="onImageSelected($event)"
+        (error)="onImageError($event)"
+      ></app-image-upload>
+    </div>
+  </div>
+</div>

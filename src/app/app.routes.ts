@@ -30,6 +30,7 @@ import { ProfileEditPageComponent } from './pages/profile-edit-page/profile-edit
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { EmptyStateTestComponent } from './pages/test-pages/empty-state-test/empty-state-test.component';
+import { ImageUploadTestComponent } from './pages/test-pages/image-upload-test/image-upload-test.component';
 import { ModalTestComponent } from './pages/test-pages/modal-test/modal-test.component';
 
 export const routes: Routes = [
@@ -74,6 +75,7 @@ export const routes: Routes = [
       { path: 'orders', component: OrdersPageComponent },
       { path: 'modal', component: ModalTestComponent },
       { path: 'empty-state', component: EmptyStateTestComponent },
+      { path: 'image-upload-test', component: ImageUploadTestComponent },
       { path: 'settings', component: SettingsPageComponent },
     ],
   },
