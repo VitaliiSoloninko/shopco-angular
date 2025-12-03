@@ -47,8 +47,6 @@ export const routes: Routes = [
       { path: 'favorites', component: FavoritesPageComponent },
       { path: 'profile', component: ProfilePageComponent },
       { path: 'profile/edit', component: ProfileEditPageComponent },
-      { path: 'modal', component: ModalTestComponent },
-      { path: 'empty-state', component: EmptyStateTestComponent },
     ],
   },
 
@@ -74,6 +72,8 @@ export const routes: Routes = [
       { path: 'users/create', component: UserCreatePageComponent },
       { path: 'users/edit/:id', component: UserEditPageComponent },
       { path: 'orders', component: OrdersPageComponent },
+      { path: 'modal', component: ModalTestComponent },
+      { path: 'empty-state', component: EmptyStateTestComponent },
       { path: 'settings', component: SettingsPageComponent },
     ],
   },

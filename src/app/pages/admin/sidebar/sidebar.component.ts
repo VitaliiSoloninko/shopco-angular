@@ -19,11 +19,6 @@ export class SidebarComponent {
       linkText: 'Dashboard',
     },
     {
-      routerLink: 'products',
-      icon: '/images/svg/admin/shirt.svg',
-      linkText: 'Products',
-    },
-    {
       routerLink: 'brands',
       icon: '/images/svg/admin/chromium.svg',
       linkText: 'Brands',
@@ -32,6 +27,11 @@ export class SidebarComponent {
       routerLink: 'types',
       icon: '/images/svg/admin/type.svg',
       linkText: 'Types',
+    },
+    {
+      routerLink: 'products',
+      icon: '/images/svg/admin/shirt.svg',
+      linkText: 'Products',
     },
     {
       routerLink: 'users',
@@ -43,15 +43,25 @@ export class SidebarComponent {
       icon: '/images/svg/admin/list-ordered.svg',
       linkText: 'Orders',
     },
-    // {
-    //   routerLink: 'settings',
-    //   icon: '/images/svg/admin/settings.svg',
-    //   linkText: 'Settings',
-    // },
     {
       routerLink: '/',
       icon: '/images/svg/admin/house.svg',
       linkText: 'Home page',
+    },
+    {
+      routerLink: 'modal',
+      icon: '/images/svg/admin/settings.svg',
+      linkText: 'Test - Modal windows',
+    },
+    {
+      routerLink: 'empty-state',
+      icon: '/images/svg/admin/settings.svg',
+      linkText: 'Test - Empty state',
+    },
+    {
+      routerLink: 'settings',
+      icon: '/images/svg/admin/settings.svg',
+      linkText: 'Test - Settings',
     },
   ];
 
