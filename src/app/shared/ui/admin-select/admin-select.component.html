@@ -1,0 +1,9 @@
+<label>{{ label() }}</label>
+<div class="select-container">
+  <select [formControl]="control()" class="admin-select">
+    <option value="">{{ placeholder() }}</option>
+    @for (option of options(); track option.value) {
+    <option [value]="option.value">{{ option.label }}</option>
+    }
+  </select>
+</div>

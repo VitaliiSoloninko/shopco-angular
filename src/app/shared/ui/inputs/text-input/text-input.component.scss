@@ -1,14 +1,14 @@
 input {
   display: flex;
   width: 100%;
+  max-width: 450px;
   padding: 0.8rem 1.5rem;
   height: 52px;
   font-size: 1rem;
   font: inherit;
   border-radius: 10px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--grey-light-color, #e0e0e0);
   transition: box-shadow 0.3s ease;
-  max-width: 450px;
 }
 
 @media (max-width: 768px) {

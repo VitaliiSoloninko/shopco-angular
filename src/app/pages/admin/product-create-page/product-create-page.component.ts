@@ -12,8 +12,14 @@ import { Brand } from '../../../entities/brand/model/brand';
 import { ProductService } from '../../../entities/product/api/product.service';
 import { TypeService } from '../../../entities/type/api/type.service';
 import { Type } from '../../../entities/type/model/type';
+import { AdminSelectComponent } from '../../../shared/ui/admin-select/admin-select.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
+
+interface SelectOption {
+  value: string | number;
+  label: string;
+}
 
 @Component({
   selector: 'app-product-create-page',
@@ -23,6 +29,7 @@ import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-in
     GrayLineComponent,
     ReactiveFormsModule,
     TextInputComponent,
+    AdminSelectComponent,
   ],
   templateUrl: './product-create-page.component.html',
   styleUrl: './product-create-page.component.scss',
@@ -34,6 +41,8 @@ export class ProductCreatePageComponent implements OnInit {
   error: string | null = null;
   types: Type[] = [];
   brands: Brand[] = [];
+  typeOptions: SelectOption[] = [];
+  brandOptions: SelectOption[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -74,14 +83,26 @@ export class ProductCreatePageComponent implements OnInit {
 
   loadTypes() {
     this.typeService.getTypes().subscribe({
-      next: (types) => (this.types = types),
+      next: (types) => {
+        this.types = types;
+        this.typeOptions = types.map((type) => ({
+          value: type.id,
+          label: type.name,
+        }));
+      },
       error: () => (this.error = 'Error loading types'),
     });
   }
 
   loadBrands() {
     this.brandService.getBrands().subscribe({
-      next: (brands) => (this.brands = brands),
+      next: (brands) => {
+        this.brands = brands;
+        this.brandOptions = brands.map((brand) => ({
+          value: brand.id,
+          label: brand.name,
+        }));
+      },
       error: () => (this.error = 'Error loading brands'),
     });
   }
