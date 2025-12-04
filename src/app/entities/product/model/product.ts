@@ -16,7 +16,7 @@ export interface ProductCreateDto {
   name: string;
   price: number;
   rating: number;
-  img: string;
+  img?: string;
   oldPrice?: number;
   discount?: number;
   typeId: number;

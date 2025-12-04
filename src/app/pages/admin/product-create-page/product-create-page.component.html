@@ -55,12 +55,12 @@
       />
     </div>
     <div class="control">
-      <label for="product-img">Image URL</label>
-      <app-text-input
+      <app-image-upload
         [control]="fc.img"
         [showErrorsWhen]="isSubmitted"
-        type="text"
-        label="Image URL"
+        label="Product Image (optional)"
+        [maxSizeInMB]="5"
+        [acceptedFormats]="['jpg', 'jpeg', 'png', 'gif']"
       />
     </div>
   </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { BRANDS } from '../../../data/brands.data';
 import { PRODUCTS_DATA } from '../../../data/products.data';
 import { TYPES } from '../../../data/types.data';
@@ -38,6 +38,34 @@ export class ProductService {
 
   deleteProduct(id: string): Observable<void> {
     return this.http.delete<void>(`${PRODUCTS_URL}/${id}`);
+  }
+
+  // Create product without image (using optional img field)
+  createProductWithoutImage(
+    product: Omit<ProductCreateDto, 'img'>
+  ): Observable<Product> {
+    return this.http.post<Product>(PRODUCTS_URL, product);
+  }
+
+  // Image upload method
+  uploadProductImage(productId: number, imageFile: File): Observable<Product> {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    return this.http.post<Product>(
+      `${PRODUCTS_URL}/${productId}/upload-image`,
+      formData
+    );
+  }
+
+  // Combined method: create product and upload image
+  createProductWithImage(
+    productData: Omit<ProductCreateDto, 'img'>,
+    imageFile: File
+  ): Observable<Product> {
+    return this.createProductWithoutImage(productData).pipe(
+      switchMap((product) => this.uploadProductImage(product.id, imageFile))
+    );
   }
 
   getProductsCount(): Observable<number> {
