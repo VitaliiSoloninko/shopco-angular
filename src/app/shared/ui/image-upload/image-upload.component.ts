@@ -102,7 +102,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
   }
 
   private validateFile(file: File): boolean {
-    // Проверка размера файла
+    // Checking file size
     const maxSizeInBytes = this.maxSizeInMB() * 1024 * 1024;
     if (file.size > maxSizeInBytes) {
       const error: ImageUploadError = {
@@ -113,7 +113,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
       return false;
     }
 
-    // Проверка формата файла
+    // Checking file format
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
     if (!fileExtension || !this.acceptedFormats().includes(fileExtension)) {
       const error: ImageUploadError = {
@@ -124,7 +124,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
       return false;
     }
 
-    // Проверка MIME типа
+    // Checking MIME type
     const allowedMimeTypes = [
       'image/jpeg',
       'image/jpg',
