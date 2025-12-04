@@ -5,7 +5,7 @@ import { ProductService } from '../../../entities/product/api/product.service';
 import { Product } from '../../../entities/product/model/product';
 import { AdminEntity } from '../../../shared/models/admin-entity.model';
 import { AddButtonComponent } from '../../../shared/ui/add-button/add-button.component';
-import { AdminEntityListComponent } from '../../../shared/ui/admin-entity-list/admin-entity-list.component';
+import { AdminProductListComponent } from '../../../shared/ui/admin-product-list/admin-product-list.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { LoaderComponent } from '../../../shared/ui/loader/loader.component';
 import { ModalComponent } from '../../../shared/ui/modal/modal.component';
@@ -15,7 +15,7 @@ import { ModalComponent } from '../../../shared/ui/modal/modal.component';
   imports: [
     CommonModule,
     GrayLineComponent,
-    AdminEntityListComponent,
+    AdminProductListComponent,
     ModalComponent,
     LoaderComponent,
     AddButtonComponent,

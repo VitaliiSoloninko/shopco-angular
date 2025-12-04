@@ -9,11 +9,11 @@
   @if (loading) {
   <app-loader></app-loader>
   } @else {
-  <app-admin-entity-list
+  <app-admin-product-list
     [items]="adminEntities"
     (edit)="onEditProduct($event)"
     (delete)="onDeleteProduct($event)"
-  ></app-admin-entity-list>
+  ></app-admin-product-list>
   }
 </div>
 

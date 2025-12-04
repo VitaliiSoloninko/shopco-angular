@@ -1,0 +1,22 @@
+<div class="product-list">
+  @if (title()) {
+  <div class="list-title">
+    <h2>{{ title() }}</h2>
+  </div>
+  } @if (items().length > 0) {
+  <div class="products-grid">
+    @for (item of items(); track item.id) {
+    <app-admin-product-card
+      [entity]="item"
+      [showImage]="true"
+      (edit)="onEdit($event)"
+      (delete)="onDelete($event)"
+    ></app-admin-product-card>
+    }
+  </div>
+  } @else {
+  <div class="empty-state">
+    <p>No products found</p>
+  </div>
+  }
+</div>
