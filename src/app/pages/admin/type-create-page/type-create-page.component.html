@@ -16,6 +16,10 @@
   <div class="form-error">{{ error }}</div>
   }
 
+  <button class="btn" [disabled]="isLoading || typeForm.invalid">
+    @if (!isLoading) {<span>Save</span>} @if (isLoading)
+    {<span>Saving...</span>}
+  </button>
   <button
     type="button"
     class="btn btn-light"
@@ -23,10 +27,5 @@
     [disabled]="isLoading"
   >
     Cancel
-  </button>
-
-  <button class="btn" [disabled]="isLoading || typeForm.invalid">
-    @if (!isLoading) {<span>Save</span>} @if (isLoading)
-    {<span>Saving...</span>}
   </button>
 </form>

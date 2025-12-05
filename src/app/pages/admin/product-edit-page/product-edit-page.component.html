@@ -95,6 +95,10 @@
   }
 
   <div class="two-column mt-24">
+    <button class="btn" [disabled]="isLoading || productForm.invalid">
+      @if (!isLoading) {<span>Save</span>} @if (isLoading)
+      {<span>Saving...</span>}
+    </button>
     <button
       type="button"
       class="btn btn-light"
@@ -102,10 +106,6 @@
       [disabled]="isLoading"
     >
       Cancel
-    </button>
-    <button class="btn" [disabled]="isLoading || productForm.invalid">
-      @if (!isLoading) {<span>Save</span>} @if (isLoading)
-      {<span>Saving...</span>}
     </button>
   </div>
 </form>
