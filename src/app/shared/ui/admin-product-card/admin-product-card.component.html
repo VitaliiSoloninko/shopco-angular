@@ -1,51 +1,74 @@
 <div class="entity-card">
-  <!-- Product Image Section -->
-  @if (entity()['img']) {
-  <div class="entity-image">
-    <img [src]="entity()['img']" [alt]="entity().name" class="product-image" />
-  </div>
-  } @else {
-  <div class="entity-image-placeholder">
-    <span class="no-image-text">No Image</span>
-  </div>
-  }
-
-  <div class="entity-info">
-    <h3 class="entity-name">{{ entity().name }}</h3>
-    <h3 class="entity-id">id: {{ entity().id }}</h3>
-
-    <!-- Image Status Indicator -->
-    @if (entity()['hasImage']) {
-    <div class="image-status has-image">
-      <span class="status-icon">✓</span>
-      <span class="status-text">Has Image</span>
+  <h3 class="entity-name">{{ entity().name }}</h3>
+  <div class="body">
+    <!-- Product Image Section -->
+    @if (entity()['img']) {
+    <div
+      class="entity-image"
+      (click)="onImageClick()"
+      style="cursor: pointer"
+      title="Click to upload new image"
+    >
+      <img
+        [src]="entity()['img']"
+        [alt]="entity().name"
+        class="product-image"
+      />
     </div>
     } @else {
-    <div class="image-status no-image">
-      <span class="status-icon">✗</span>
-      <span class="status-text">No Image</span>
+    <div
+      class="entity-image-placeholder"
+      (click)="onImageClick()"
+      style="cursor: pointer"
+      title="Click to upload image"
+    >
+      <span class="no-image-text">No Image</span>
     </div>
     }
 
-    <!-- Price if available -->
-    @if (entity()['price']) {
-    <p class="entity-price">${{ entity()["price"] }}</p>
-    }
-  </div>
-  <div class="entity-actions">
-    <button
-      class="action-btn edit-btn"
-      (click)="onEdit()"
-      [title]="'Edit ' + entity.name"
-    >
-      <img src="/images/svg/admin/pencil.svg" alt="Edit" />
-    </button>
-    <button
-      class="action-btn delete-btn"
-      (click)="onDelete()"
-      [title]="'Delete ' + entity.name"
-    >
-      <img src="/images/svg/admin/trash.svg" alt="Delete" />
-    </button>
+    <div class="entity-info">
+      <h3 class="entity-id">id: {{ entity().id }}</h3>
+
+      <!-- Image Status Indicator -->
+      @if (entity()['hasImage']) {
+      <div class="image-status has-image">
+        <span class="status-icon">✓</span>
+        <span class="status-text">Has Image</span>
+      </div>
+      } @else {
+      <div class="image-status no-image">
+        <span class="status-icon">✗</span>
+        <span class="status-text">No Image</span>
+      </div>
+      }
+
+      <!-- Price if available -->
+      @if (entity()['price']) {
+      <p class="entity-price">${{ entity()["price"] }}</p>
+      }
+    </div>
+    <div class="entity-actions">
+      <button
+        class="action-btn edit-btn"
+        (click)="onImageClick()"
+        [title]="'Edit ' + entity.name"
+      >
+        <img src="/images/svg/admin/image.svg" alt="Edit Image" />
+      </button>
+      <button
+        class="action-btn edit-btn"
+        (click)="onEdit()"
+        [title]="'Edit ' + entity.name"
+      >
+        <img src="/images/svg/admin/pencil.svg" alt="Edit" />
+      </button>
+      <button
+        class="action-btn delete-btn"
+        (click)="onDelete()"
+        [title]="'Delete ' + entity.name"
+      >
+        <img src="/images/svg/admin/trash.svg" alt="Delete" />
+      </button>
+    </div>
   </div>
 </div>

@@ -13,6 +13,7 @@ export class AdminProductCardComponent {
 
   edit = output<AdminEntity>();
   delete = output<number>();
+  imageClick = output<AdminEntity>();
 
   onEdit() {
     this.edit.emit(this.entity());
@@ -20,5 +21,9 @@ export class AdminProductCardComponent {
 
   onDelete() {
     this.delete.emit(this.entity().id);
+  }
+
+  onImageClick() {
+    this.imageClick.emit(this.entity());
   }
 }

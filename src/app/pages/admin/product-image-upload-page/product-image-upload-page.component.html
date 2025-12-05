@@ -1,0 +1,45 @@
+<h1 class="h1">Upload Image</h1>
+<app-gray-line></app-gray-line>
+
+@if (loading) {
+<app-loader></app-loader>
+} @else {
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
+  <div class="form-group">
+    <app-image-upload
+      [control]="fc.image"
+      [showErrorsWhen]="isSubmitted"
+      label="Product Image"
+      [maxSizeInMB]="5"
+      [acceptedFormats]="['jpg', 'jpeg', 'png', 'gif']"
+      (fileSelected)="onImageSelected($event)"
+      (error)="onImageError($event)"
+    ></app-image-upload>
+  </div>
+
+  @if (uploadError) {
+  <div class="error-message">
+    {{ uploadError.message }}
+  </div>
+  }
+
+  <div class="form-actions">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="loading || !uploadForm.valid"
+    >
+      @if (loading) { Uploading... } @else { Upload Image }
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="router.navigate(['/admin/products'])"
+      [disabled]="loading"
+    >
+      Cancel
+    </button>
+  </div>
+</form>
+}

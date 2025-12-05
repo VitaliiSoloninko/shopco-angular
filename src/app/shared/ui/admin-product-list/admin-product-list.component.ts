@@ -14,6 +14,7 @@ export class AdminProductListComponent {
 
   edit = output<AdminEntity>();
   delete = output<number>();
+  imageClick = output<AdminEntity>();
 
   onEdit(entity: AdminEntity) {
     this.edit.emit(entity);
@@ -21,5 +22,9 @@ export class AdminProductListComponent {
 
   onDelete(id: number) {
     this.delete.emit(id);
+  }
+
+  onImageClick(entity: AdminEntity) {
+    this.imageClick.emit(entity);
   }
 }

@@ -89,6 +89,10 @@ export class ProductsPageComponent implements OnInit {
     this.router.navigate(['admin/products/edit', entity.id]);
   }
 
+  onImageClick(entity: AdminEntity) {
+    this.router.navigate(['admin/products/upload-image', entity.id]);
+  }
+
   private getImageUrl(imagePath: string | null): string | null {
     if (!imagePath) return null;
 
