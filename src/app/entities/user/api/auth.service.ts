@@ -34,13 +34,25 @@ export class AuthService {
   login(credentials: LoginDto): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(LOGIN_URL, credentials).pipe(
       tap((response) => {
-        this.setAuthData(response);
+        // Сохраняем только токен
+        this.setAuthData(response.access_token);
       })
     );
   }
 
+  /**
+   * Register a new user.
+   * The backend now returns only { access_token }.
+   * We store the token and do NOT immediately load the profile.
+   * The caller (UI) should redirect to the home page.
+   */
   register(userData: RegisterDto): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>(REGISTER_URL, userData);
+    return this.http.post<RegisterResponse>(REGISTER_URL, userData).pipe(
+      tap((response) => {
+        // Save token only and mark as authenticated
+        this.setAuthData(response.access_token);
+      })
+    );
   }
 
   logout(): void {
@@ -70,6 +82,16 @@ export class AuthService {
     );
   }
 
+  private loadUserProfile(): Observable<UserProfile> {
+    return this.http.get<User>(PROFILE_URL).pipe(
+      map((user) => this.mapUserToProfile(user)),
+      tap((userProfile) => {
+        this.currentUserSubject.next(userProfile);
+        localStorage.setItem(this.USER_KEY, JSON.stringify(userProfile));
+      })
+    );
+  }
+
   hasRole(role: 'user' | 'admin'): boolean {
     const currentUser = this.getCurrentUser();
     return currentUser?.role === role;
@@ -90,14 +112,9 @@ export class AuthService {
     );
   }
 
-  private setAuthData(authResponse: AuthResponse): void {
-    const userProfile = this.mapUserToProfile(authResponse.user);
-
-    localStorage.setItem(this.TOKEN_KEY, authResponse.token);
-    localStorage.setItem(this.USER_KEY, JSON.stringify(userProfile));
-
+  private setAuthData(token: string): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
     this.isAuthenticatedSubject.next(true);
-    this.currentUserSubject.next(userProfile);
   }
 
   private clearAuthData(): void {
@@ -123,10 +140,10 @@ export class AuthService {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
-      street: user.street,
-      city: user.city,
-      postalCode: user.postalCode,
-      country: user.country,
+      street: user.street || '',
+      city: user.city || '',
+      postalCode: user.postalCode || '',
+      country: user.country || '',
       role: user.role,
       isActive: user.isActive,
       fullName: `${user.firstName} ${user.lastName}`.trim(),

@@ -9,9 +9,9 @@ export interface UserAddress {
 
 export function extractAddressFromUser(user: User): UserAddress {
   return {
-    street: user.street,
-    city: user.city,
-    postalCode: user.postalCode,
-    country: user.country,
+    street: user.street || '',
+    city: user.city || '',
+    postalCode: user.postalCode || '',
+    country: user.country || '',
   };
 }

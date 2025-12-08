@@ -1,6 +1,6 @@
 // Backend URL configuration for the ShopCo application
-// const BASE_URL = 'http://localhost:5000';
-const BASE_URL = 'https://shopco.soloninko.online';
+const BASE_URL = 'http://localhost:5000';
+// const BASE_URL = 'https://shopco.soloninko.online';
 
 export const DOCS_URL = BASE_URL + '/api/docs';
 
@@ -11,7 +11,7 @@ export const PRODUCTS_URL = BASE_URL + '/api/products';
 export const IMAGES_BASE_URL = BASE_URL + '/uploads/products/';
 
 export const LOGIN_URL = BASE_URL + '/api/auth/login';
-export const REGISTER_URL = BASE_URL + '/api/users';
+export const REGISTER_URL = BASE_URL + '/api/auth/register';
 export const PROFILE_URL = BASE_URL + '/api/auth/profile';
 
 // Frontend URL configuration for the ShopCo application

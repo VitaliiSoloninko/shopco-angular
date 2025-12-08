@@ -58,10 +58,9 @@ export class RegisterFormComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
         console.log('Registration successful:', response);
-        // После успешной регистрации переходим на страницу логина
-        this.router.navigate(['/login'], {
-          queryParams: { message: 'Registration successful! Please log in.' },
-        });
+        // После успешной регистрации пользователь автоматически авторизован
+        // Перенаправляем на главную страницу
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
