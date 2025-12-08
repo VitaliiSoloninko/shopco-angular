@@ -23,10 +23,6 @@ export interface RegisterDto {
   password: string;
   firstName: string;
   lastName: string;
-  street?: string;
-  city?: string;
-  postalCode?: string;
-  country?: string;
 }
 
 export interface UpdateUserDto {
@@ -79,6 +75,21 @@ export interface UserProfile {
 export interface AuthResponse {
   user: User;
   token: string;
+}
+
+export interface RegisterResponse {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  street?: string;
+  city?: string;
+  postalCode?: string;
+  country?: string;
+  role: 'user' | 'admin';
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CurrentUserState {

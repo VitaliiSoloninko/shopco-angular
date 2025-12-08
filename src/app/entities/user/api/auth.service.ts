@@ -7,6 +7,7 @@ import {
   AuthResponse,
   LoginDto,
   RegisterDto,
+  RegisterResponse,
   User,
   UserProfile,
 } from '../model';
@@ -30,9 +31,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  /**
-   * Login user
-   */
   login(credentials: LoginDto): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(LOGIN_URL, credentials).pipe(
       tap((response) => {
@@ -41,49 +39,27 @@ export class AuthService {
     );
   }
 
-  /**
-   * Register new user
-   */
-  register(userData: RegisterDto): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(REGISTER_URL, userData).pipe(
-      tap((response) => {
-        this.setAuthData(response);
-      })
-    );
+  register(userData: RegisterDto): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(REGISTER_URL, userData);
   }
 
-  /**
-   * Logout user
-   */
   logout(): void {
     this.clearAuthData();
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Check if user is authenticated
-   */
   isAuthenticated(): boolean {
     return this.isAuthenticatedSubject.value;
   }
 
-  /**
-   * Get current user
-   */
   getCurrentUser(): UserProfile | null {
     return this.currentUserSubject.value;
   }
 
-  /**
-   * Get auth token
-   */
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  /**
-   * Refresh user data from server
-   */
   refreshUserData(): Observable<UserProfile> {
     return this.http.get<User>(PROFILE_URL).pipe(
       map((user) => this.mapUserToProfile(user)),
@@ -94,24 +70,15 @@ export class AuthService {
     );
   }
 
-  /**
-   * Check if current user has specific role
-   */
   hasRole(role: 'user' | 'admin'): boolean {
     const currentUser = this.getCurrentUser();
     return currentUser?.role === role;
   }
 
-  /**
-   * Check if current user is admin
-   */
   isAdmin(): boolean {
     return this.hasRole('admin');
   }
 
-  /**
-   * Initialize auth state (call on app startup)
-   */
   initializeAuth(): Observable<boolean> {
     if (!this.hasToken()) {
       return of(false);
@@ -123,9 +90,6 @@ export class AuthService {
     );
   }
 
-  /**
-   * Set authentication data
-   */
   private setAuthData(authResponse: AuthResponse): void {
     const userProfile = this.mapUserToProfile(authResponse.user);
 
@@ -136,9 +100,6 @@ export class AuthService {
     this.currentUserSubject.next(userProfile);
   }
 
-  /**
-   * Clear authentication data
-   */
   private clearAuthData(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
@@ -147,24 +108,15 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
-  /**
-   * Check if token exists
-   */
   private hasToken(): boolean {
     return !!localStorage.getItem(this.TOKEN_KEY);
   }
 
-  /**
-   * Get current user from localStorage
-   */
   private getCurrentUserFromStorage(): UserProfile | null {
     const userJson = localStorage.getItem(this.USER_KEY);
     return userJson ? JSON.parse(userJson) : null;
   }
 
-  /**
-   * Map User to UserProfile
-   */
   private mapUserToProfile(user: User): UserProfile {
     return {
       id: user.id,

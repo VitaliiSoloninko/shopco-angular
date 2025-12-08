@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,7 +15,7 @@ import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-in
   templateUrl: './register-form.component.html',
   styleUrl: './register-form.component.scss',
 })
-export class RegisterFormComponent {
+export class RegisterFormComponent implements OnInit {
   registerForm!: FormGroup;
   isSubmitted = false;
   returnUrl = '';
@@ -56,10 +55,13 @@ export class RegisterFormComponent {
     const registerData = this.registerForm.value;
 
     this.authService.register(registerData).subscribe({
-      next: () => {
+      next: (response) => {
         this.isLoading = false;
-        // navigate to profile or home after registration
-        this.router.navigate(['/profile']);
+        console.log('Registration successful:', response);
+        // После успешной регистрации переходим на страницу логина
+        this.router.navigate(['/login'], {
+          queryParams: { message: 'Registration successful! Please log in.' },
+        });
       },
       error: (err) => {
         this.isLoading = false;
