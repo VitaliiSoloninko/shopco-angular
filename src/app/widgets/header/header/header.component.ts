@@ -6,10 +6,17 @@ import { TokenService } from '../../../entities/user/api/token.service';
 import { UserState } from '../../../entities/user/model/user.state';
 import { BadgeComponent } from '../../../shared/ui/badge/badge.component';
 import { BurgerMenuComponent } from '../../../shared/ui/burger-menu/burger-menu.component';
+import { ProfileDropdownComponent } from '../profile-dropdown/profile-dropdown.component';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, BurgerMenuComponent, RouterLinkActive, BadgeComponent],
+  imports: [
+    RouterLink,
+    BurgerMenuComponent,
+    RouterLinkActive,
+    BadgeComponent,
+    ProfileDropdownComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

@@ -1,0 +1,32 @@
+<div class="profile-dropdown">
+  <button
+    class="header-icon profile-trigger"
+    (click)="toggleDropdown()"
+    [class.active]="isOpen()"
+  >
+    <img src="/images/svg/user-cog.svg" alt="Profile" />
+  </button>
+
+  @if (isOpen()) {
+  <div class="dropdown-menu">
+    <a class="dropdown-item" routerLink="/profile" (click)="closeDropdown()">
+      <img src="/images/svg/user.svg" alt="Profile" />
+      <span>Profile</span>
+    </a>
+
+    <a
+      class="dropdown-item"
+      routerLink="/profile/edit"
+      (click)="closeDropdown()"
+    >
+      <img src="/images/svg/user-cog.svg" alt="Edit Profile" />
+      <span>Edit Profile</span>
+    </a>
+
+    <button class="dropdown-item logout-btn" (click)="onLogout()">
+      <img src="/images/svg/log-out.svg" alt="Logout" />
+      <span>Logout</span>
+    </button>
+  </div>
+  }
+</div>

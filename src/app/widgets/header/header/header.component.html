@@ -35,7 +35,6 @@
     <a class="menu-link" routerLink="/profile" routerLinkActive="active"
       >Profile</a
     >
-    <button class="menu-link" (click)="onLogout()">Logout</button>
     }
   </nav>
 
@@ -46,14 +45,12 @@
     </a>
     }
     <a class="header-icon" routerLink="/cart">
-      <img src="/images/svg/basket.svg" alt="Basket" />
+      <img src="/images/svg/shopping-cart.svg" alt="Basket" />
       <app-badge [count]="cartItemsCount"></app-badge>
     </a>
 
     @if (isAuthenticated) {
-    <a class="header-icon" routerLink="/profile">
-      <img src="/images/svg/user.svg" alt="Profile" />
-    </a>
+    <app-profile-dropdown (logout)="onLogout()"></app-profile-dropdown>
     } @else {
     <a class="header-icon" routerLink="/login">
       <img src="/images/svg/user.svg" alt="Login" />
