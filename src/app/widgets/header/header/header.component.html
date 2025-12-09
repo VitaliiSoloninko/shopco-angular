@@ -40,10 +40,11 @@
   </nav>
 
   <div class="header-actions">
-    @if (isAuthenticated && userState.isAdmin()) { }
-    <a class="header-icon" routerLink="/admin">
-      <img src="/images/svg/lock.svg" alt="Admin" />
+    @if (isAdmin) {
+    <a class="header-icon" routerLink="/admin" title="Admin Panel">
+      <img src="/images/svg/admin/lock.svg" alt="Admin" />
     </a>
+    }
     <a class="header-icon" routerLink="/cart">
       <img src="/images/svg/basket.svg" alt="Basket" />
       <app-badge [count]="cartItemsCount"></app-badge>
