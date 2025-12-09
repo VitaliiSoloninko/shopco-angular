@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 import { LOGIN_URL, PROFILE_URL, REGISTER_URL } from '../../../urls';
@@ -11,20 +11,16 @@ import {
   User,
   UserProfile,
 } from '../model';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly TOKEN_KEY = 'auth_token';
-  private readonly USER_KEY = 'current_user';
+  private tokenService = inject(TokenService);
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(
-    this.hasToken()
-  );
-  private currentUserSubject = new BehaviorSubject<UserProfile | null>(
-    this.getCurrentUserFromStorage()
-  );
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private currentUserSubject = new BehaviorSubject<UserProfile | null>(null);
 
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -34,29 +30,27 @@ export class AuthService {
   login(credentials: LoginDto): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(LOGIN_URL, credentials).pipe(
       tap((response) => {
-        // Сохраняем только токен
-        this.setAuthData(response.access_token);
+        // Save token in memory
+        this.tokenService.setToken(response.access_token);
+        this.isAuthenticatedSubject.next(true);
       })
     );
   }
 
-  /**
-   * Register a new user.
-   * The backend now returns only { access_token }.
-   * We store the token and do NOT immediately load the profile.
-   * The caller (UI) should redirect to the home page.
-   */
   register(userData: RegisterDto): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(REGISTER_URL, userData).pipe(
       tap((response) => {
-        // Save token only and mark as authenticated
-        this.setAuthData(response.access_token);
+        // Save token in memory
+        this.tokenService.setToken(response.access_token);
+        this.isAuthenticatedSubject.next(true);
       })
     );
   }
 
   logout(): void {
-    this.clearAuthData();
+    this.tokenService.clearToken();
+    this.isAuthenticatedSubject.next(false);
+    this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 
@@ -69,7 +63,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    return this.tokenService.getToken();
   }
 
   refreshUserData(): Observable<UserProfile> {
@@ -77,7 +71,6 @@ export class AuthService {
       map((user) => this.mapUserToProfile(user)),
       tap((userProfile) => {
         this.currentUserSubject.next(userProfile);
-        localStorage.setItem(this.USER_KEY, JSON.stringify(userProfile));
       })
     );
   }
@@ -87,7 +80,6 @@ export class AuthService {
       map((user) => this.mapUserToProfile(user)),
       tap((userProfile) => {
         this.currentUserSubject.next(userProfile);
-        localStorage.setItem(this.USER_KEY, JSON.stringify(userProfile));
       })
     );
   }
@@ -102,7 +94,7 @@ export class AuthService {
   }
 
   initializeAuth(): Observable<boolean> {
-    if (!this.hasToken()) {
+    if (!this.tokenService.hasToken()) {
       return of(false);
     }
 
@@ -110,28 +102,6 @@ export class AuthService {
       map(() => true),
       tap(() => this.isAuthenticatedSubject.next(true))
     );
-  }
-
-  private setAuthData(token: string): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
-    this.isAuthenticatedSubject.next(true);
-  }
-
-  private clearAuthData(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-
-    this.isAuthenticatedSubject.next(false);
-    this.currentUserSubject.next(null);
-  }
-
-  private hasToken(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
-  }
-
-  private getCurrentUserFromStorage(): UserProfile | null {
-    const userJson = localStorage.getItem(this.USER_KEY);
-    return userJson ? JSON.parse(userJson) : null;
   }
 
   private mapUserToProfile(user: User): UserProfile {

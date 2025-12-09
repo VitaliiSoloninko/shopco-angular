@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../entities/user/api/auth.service';
+import { UserState } from '../../../entities/user/model/user.state';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginFormComponent implements OnInit {
   error: string | null = null;
 
   private authService = inject(AuthService);
+  private userState = inject(UserState);
   private router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {}
@@ -53,9 +55,11 @@ export class LoginFormComponent implements OnInit {
     const credentials = this.loginForm.value;
 
     this.authService.login(credentials).subscribe({
-      next: () => {
+      next: (response) => {
+        // Save token in UserState
+        this.userState.setAccessToken(response.access_token);
         this.isLoading = false;
-        // navigate to home or profile after successful login
+        // navigate to home after successful login
         this.router.navigate(['/']);
       },
       error: (err) => {

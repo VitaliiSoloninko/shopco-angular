@@ -1,6 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { USERS } from '../../../data/users.data';
 import { AuthService } from '../api/auth.service';
+import { TokenService } from '../api/token.service';
 import { UserService } from '../api/user.service';
 import { UserProfile } from './user.model';
 
@@ -10,6 +11,7 @@ import { UserProfile } from './user.model';
 export class UserState {
   private authService = inject(AuthService);
   private userService = inject(UserService);
+  private tokenService = inject(TokenService);
 
   // Private signals
   private _currentUser = signal<UserProfile | null>(null);
@@ -20,9 +22,12 @@ export class UserState {
   readonly currentUser = this._currentUser.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
   readonly error = this._error.asReadonly();
+  readonly accessToken = this.tokenService.accessToken;
 
   // Computed derived state
-  readonly isAuthenticated = computed(() => !!this._currentUser());
+  readonly isAuthenticated = computed(
+    () => !!this.tokenService.getToken() && !!this._currentUser()
+  );
   readonly isAdmin = computed(() => this._currentUser()?.role === 'admin');
   readonly fullName = computed(() => {
     const user = this._currentUser();
@@ -87,6 +92,20 @@ export class UserState {
   }
 
   /**
+   * Set access token in memory
+   */
+  setAccessToken(token: string | null): void {
+    this.tokenService.setToken(token);
+  }
+
+  /**
+   * Get access token
+   */
+  getAccessToken(): string | null {
+    return this.tokenService.getToken();
+  }
+
+  /**
    * Update user profile
    */
   async updateUserProfile(updateData: Partial<UserProfile>): Promise<void> {
@@ -138,6 +157,7 @@ export class UserState {
     this._currentUser.set(null);
     this._error.set(null);
     this._isLoading.set(false);
+    this.tokenService.clearToken();
   }
 
   /**

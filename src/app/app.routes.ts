@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { adminGuard, authGuard } from './shared/guards/auth.guard';
 
 import { AdminComponent } from './pages/admin/admin.component';
 import { BrandCreatePageComponent } from './pages/admin/brand-create-page/brand-create-page.component';
@@ -43,12 +44,36 @@ export const routes: Routes = [
       { path: 'catalog', component: ProductCatalogPageComponent },
       { path: 'product/:id', component: ProductDetailPageComponent },
       { path: 'cart', component: CartPageComponent },
-      { path: 'checkout', component: CheckoutPageComponent },
-      { path: 'payment', component: PaymentPageComponent },
-      { path: 'success', component: SuccessPageComponent },
-      { path: 'favorites', component: FavoritesPageComponent },
-      { path: 'profile', component: ProfilePageComponent },
-      { path: 'profile/edit', component: ProfileEditPageComponent },
+      {
+        path: 'checkout',
+        component: CheckoutPageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'payment',
+        component: PaymentPageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'success',
+        component: SuccessPageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'favorites',
+        component: FavoritesPageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile',
+        component: ProfilePageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile/edit',
+        component: ProfileEditPageComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
 
@@ -58,6 +83,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [adminGuard],
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       { path: 'dashboard', component: DashboardPageComponent },

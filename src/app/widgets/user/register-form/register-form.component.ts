@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../entities/user/api/auth.service';
+import { UserState } from '../../../entities/user/model/user.state';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
 
 @Component({
@@ -24,6 +25,7 @@ export class RegisterFormComponent implements OnInit {
   error: string | null = null;
 
   private authService = inject(AuthService);
+  private userState = inject(UserState);
   private router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {}
@@ -56,10 +58,12 @@ export class RegisterFormComponent implements OnInit {
 
     this.authService.register(registerData).subscribe({
       next: (response) => {
+        // Save token in UserState
+        this.userState.setAccessToken(response.access_token);
         this.isLoading = false;
         console.log('Registration successful:', response);
-        // После успешной регистрации пользователь автоматически авторизован
-        // Перенаправляем на главную страницу
+        // After successful registration, the user is automatically authenticated
+        // Redirect to the home page
         this.router.navigate(['/']);
       },
       error: (err) => {

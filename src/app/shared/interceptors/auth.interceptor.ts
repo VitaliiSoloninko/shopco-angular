@@ -1,10 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../../entities/user/api/auth.service';
+import { TokenService } from '../../entities/user/api/token.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
-  const token = authService.getToken();
+  const tokenService = inject(TokenService);
+  const token = tokenService.getToken();
 
   // Skip adding token for auth endpoints to avoid infinite loops
   const isAuthEndpoint =
