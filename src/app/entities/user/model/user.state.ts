@@ -1,5 +1,4 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { USERS } from '../../../data/users.data';
 import { AuthService } from '../api/auth.service';
 import { TokenService } from '../api/token.service';
 import { UserService } from '../api/user.service';
@@ -235,30 +234,5 @@ export class UserState {
         lastName: user.lastName,
       };
     });
-  }
-
-  /**
-   * Load first mock user from USERS data (for development/demo)
-   */
-  loadMockUser(): void {
-    if (USERS.length > 0) {
-      const mockUser = USERS[0];
-      const userProfile: UserProfile = {
-        id: mockUser.id,
-        email: mockUser.email,
-        firstName: mockUser.firstName,
-        lastName: mockUser.lastName,
-        street: mockUser.street,
-        city: mockUser.city,
-        postalCode: mockUser.postalCode,
-        country: mockUser.country,
-        role: mockUser.role,
-        isActive: mockUser.isActive,
-        fullName: `${mockUser.firstName} ${mockUser.lastName}`.trim(),
-      };
-
-      this._currentUser.set(userProfile);
-      this._error.set(null);
-    }
   }
 }

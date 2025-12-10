@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -6,22 +5,25 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TextInputComponent } from '../../../../shared/ui/inputs/text-input/text-input.component';
 import { UserState } from '../../model/user.state';
 
 @Component({
   selector: 'app-profile-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TextInputComponent],
+  imports: [ReactiveFormsModule, TextInputComponent],
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   public userState = inject(UserState);
 
   profileForm!: FormGroup;
   isSubmitted = false;
+  isUpdating = false;
 
   ngOnInit(): void {
     const user = this.userState.currentUser();
@@ -54,11 +56,13 @@ export class ProfileFormComponent implements OnInit {
     const update = this.profileForm.value;
 
     try {
+      this.isUpdating = true;
       await this.userState.updateUserProfile(update);
-      // Optionally show toast — kept minimal here
+      this.router.navigate(['/profile']);
     } catch (err) {
-      // error handled in UserState
       console.error('Profile update failed', err);
+    } finally {
+      this.isUpdating = false;
     }
   }
 }

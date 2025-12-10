@@ -49,14 +49,17 @@
 
     <div class="actions">
       <button
-        class="btn"
-        [disabled]="profileForm.invalid || userState.isLoading()"
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="profileForm.invalid || isUpdating"
       >
-        Save
+        {{ isUpdating ? "Saving..." : "Save" }}
       </button>
-      <div *ngIf="userState.error()" class="form-error">
+      @if (userState.error()) {
+      <div class="form-error">
         {{ userState.error() }}
       </div>
+      }
     </div>
   </form>
 </div>
