@@ -4,6 +4,7 @@
 <form [formGroup]="userForm" (ngSubmit)="submit()">
   <div class="form-grid">
     <div class="control">
+      <label>Email</label>
       <app-text-input
         [control]="fc.email"
         [showErrorsWhen]="isSubmitted"
@@ -13,6 +14,7 @@
     </div>
 
     <div class="control">
+      <label>Password</label>
       <app-text-input
         [control]="fc.password"
         [showErrorsWhen]="isSubmitted"
@@ -22,6 +24,7 @@
     </div>
 
     <div class="control">
+      <label>First Name</label>
       <app-text-input
         [control]="fc.firstName"
         [showErrorsWhen]="isSubmitted"
@@ -31,6 +34,7 @@
     </div>
 
     <div class="control">
+      <label>Last Name</label>
       <app-text-input
         [control]="fc.lastName"
         [showErrorsWhen]="isSubmitted"
@@ -40,6 +44,7 @@
     </div>
 
     <div class="control">
+      <label>Street</label>
       <app-text-input
         [control]="fc.street"
         [showErrorsWhen]="isSubmitted"
@@ -49,6 +54,7 @@
     </div>
 
     <div class="control">
+      <label>City</label>
       <app-text-input
         [control]="fc.city"
         [showErrorsWhen]="isSubmitted"
@@ -58,6 +64,7 @@
     </div>
 
     <div class="control">
+      <label>Postal Code</label>
       <app-text-input
         [control]="fc.postalCode"
         [showErrorsWhen]="isSubmitted"
@@ -67,6 +74,7 @@
     </div>
 
     <div class="control">
+      <label>Country</label>
       <app-text-input
         [control]="fc.country"
         [showErrorsWhen]="isSubmitted"
