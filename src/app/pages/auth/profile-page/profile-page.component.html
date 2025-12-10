@@ -1,4 +1,6 @@
 <h1 class="h1 mb-16">Profile</h1>
+
+@if (userState.currentUser()) {
 <div class="profile-page">
   <div class="profile-main">
     <app-avatar [size]="120"></app-avatar>
@@ -41,3 +43,4 @@
     Edit Profile
   </button>
 </div>
+}

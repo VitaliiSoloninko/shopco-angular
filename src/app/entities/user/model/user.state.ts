@@ -137,14 +137,38 @@ export class UserState {
       this._isLoading.set(true);
       this._error.set(null);
 
+      // Check if user is authenticated
+      if (!this.tokenService.hasToken()) {
+        throw new Error('No authentication token found');
+      }
+
       const user = await this.authService.refreshUserData().toPromise();
 
       if (user) {
         this._currentUser.set(user);
+      } else {
+        throw new Error('No user data received from server');
       }
-    } catch (error) {
-      this._error.set('Failed to refresh user data');
+    } catch (error: any) {
       console.error('Refresh user data error:', error);
+
+      // Set more specific error messages
+      if (error?.status === 401) {
+        this._error.set('Authentication expired. Please log in again.');
+      } else if (error?.status === 403) {
+        this._error.set('Access denied. Please check your permissions.');
+      } else if (error?.status === 0 || !error?.status) {
+        this._error.set(
+          'Unable to connect to server. Please check your connection.'
+        );
+      } else if (error?.message === 'No authentication token found') {
+        this._error.set('Please log in to view your profile.');
+      } else {
+        this._error.set('Failed to load profile data. Please try again.');
+      }
+
+      // Re-throw error so calling component can handle it if needed
+      throw error;
     } finally {
       this._isLoading.set(false);
     }
