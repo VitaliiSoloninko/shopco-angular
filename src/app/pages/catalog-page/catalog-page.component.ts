@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ProductsCatalogComponent } from '../../widgets/product/products-catalog/products-catalog.component';
 
 @Component({
-  selector: 'app-product-catalog-page',
+  selector: 'app-catalog-page',
   imports: [ProductsCatalogComponent],
-  templateUrl: './product-catalog-page.component.html',
-  styleUrl: './product-catalog-page.component.scss',
+  templateUrl: './catalog-page.component.html',
+  styleUrl: './catalog-page.component.scss',
 })
-export class ProductCatalogPageComponent {}
+export class CatalogPageComponent {}

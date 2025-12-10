@@ -28,12 +28,12 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
-import { ProductCatalogPageComponent } from './pages/product-catalog-page/product-catalog-page.component';
 import { ProductDetailPageComponent } from './pages/product-detail-page/product-detail-page.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { EmptyStateTestComponent } from './pages/test-pages/empty-state-test/empty-state-test.component';
 import { ImageUploadTestComponent } from './pages/test-pages/image-upload-test/image-upload-test.component';
 import { ModalTestComponent } from './pages/test-pages/modal-test/modal-test.component';
+import { CatalogPageComponent } from './pages/catalog-page/catalog-page.component';
 
 export const routes: Routes = [
   {
@@ -41,7 +41,7 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: '', component: HomePageComponent },
-      { path: 'catalog', component: ProductCatalogPageComponent },
+      { path: 'catalog', component: CatalogPageComponent },
       { path: 'product/:id', component: ProductDetailPageComponent },
       { path: 'cart', component: CartPageComponent },
       {
