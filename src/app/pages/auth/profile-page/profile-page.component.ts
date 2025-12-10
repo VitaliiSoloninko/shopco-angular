@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserState } from '../../entities/user/model/user.state';
-import { AvatarComponent } from '../../entities/user/ui/avatar/avatar.component';
+import { AvatarComponent } from '../../../entities/user/ui/avatar/avatar.component';
+import { UserState } from '../../../entities/user/model';
 
 @Component({
   selector: 'app-profile-page',

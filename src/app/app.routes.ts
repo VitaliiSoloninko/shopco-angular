@@ -21,6 +21,8 @@ import { UserCreatePageComponent } from './pages/admin/user-create-page/user-cre
 import { UserEditPageComponent } from './pages/admin/user-edit-page/user-edit-page.component';
 import { UsersPageComponent } from './pages/admin/users-page/users-page.component';
 import { LoginPageComponent } from './pages/auth/login-page/login-page.component';
+import { ProfileEditPageComponent } from './pages/auth/profile-edit-page/profile-edit-page.component';
+import { ProfilePageComponent } from './pages/auth/profile-page/profile-page.component';
 import { RegisterPageComponent } from './pages/auth/register-page/register-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
@@ -28,8 +30,6 @@ import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { ProductCatalogPageComponent } from './pages/product-catalog-page/product-catalog-page.component';
 import { ProductDetailPageComponent } from './pages/product-detail-page/product-detail-page.component';
-import { ProfileEditPageComponent } from './pages/profile-edit-page/profile-edit-page.component';
-import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SuccessPageComponent } from './pages/success-page/success-page.component';
 import { EmptyStateTestComponent } from './pages/test-pages/empty-state-test/empty-state-test.component';
 import { ImageUploadTestComponent } from './pages/test-pages/image-upload-test/image-upload-test.component';

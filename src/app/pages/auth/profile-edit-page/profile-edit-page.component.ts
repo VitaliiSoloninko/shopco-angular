@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserState } from '../../entities/user/model/user.state';
-import { ProfileFormComponent } from '../../entities/user/ui/profile-form/profile-form.component';
+import { ProfileFormComponent } from '../../../entities/user/ui/profile-form/profile-form.component';
+import { UserState } from '../../../entities/user/model';
 
 @Component({
   selector: 'app-profile-edit-page',
