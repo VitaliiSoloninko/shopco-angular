@@ -1,6 +1,9 @@
 # Angular Shop Co
 
 A modern e-commerce web application built with Angular 20, featuring a complete shopping experience with product catalog, cart management, and responsive design.
+Version 1.2
+All shop part frontend with mock data (data folder)
+Admin panel with real backend and RxJS (brands, types, products, users)
 
 ## 🛠️ Tech Stack
 
