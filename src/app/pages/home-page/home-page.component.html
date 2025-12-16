@@ -3,7 +3,7 @@
 <h2 class="h1 mb-36 center">NEW ARRIVALS</h2>
 <div class="mb-24 product-list-home">
   <app-product-list
-    [products]="newProducts"
+    [products]="(newProducts$ | async) || []"
     (productClick)="navigateToProduct($event)"
   ></app-product-list>
 </div>
@@ -14,7 +14,7 @@
 <h2 class="h1 mb-36 center">TOP RATED</h2>
 <div class="mb-24 product-list-home">
   <app-product-list
-    [products]="topRatedProducts"
+    [products]="(topRatedProducts$ | async) || []"
     (productClick)="navigateToProduct($event)"
   ></app-product-list>
 </div>

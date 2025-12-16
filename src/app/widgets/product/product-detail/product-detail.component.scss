@@ -149,6 +149,29 @@
     font-size: 1rem;
   }
 
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    .detail-item {
+      display: flex;
+      gap: 0.75rem;
+
+      .detail-label {
+        font-weight: 600;
+        color: var(--primary-color-06);
+        min-width: 60px;
+      }
+
+      .detail-value {
+        color: var(--primary-color, #000);
+        font-weight: 500;
+      }
+    }
+  }
+
   .cart-section {
     display: flex;
     flex-wrap: wrap;

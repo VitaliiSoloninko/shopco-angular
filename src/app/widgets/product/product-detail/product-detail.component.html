@@ -3,7 +3,7 @@
     <!-- Product Image -->
 
     <div class="product-image">
-      <img [src]="product?.img" alt="{{ product?.name }}" />
+      <img [src]="getImageUrl(product?.img || '')" alt="{{ product?.name }}" />
     </div>
 
     <!-- Product Info -->
@@ -13,13 +13,11 @@
       <!-- Rating -->
       <div class="rating-section">
         <div class="stars">
-          <span class="star filled">★</span>
-          <span class="star filled">★</span>
-          <span class="star filled">★</span>
-          <span class="star filled">★</span>
-          <span class="star half">★</span>
+          @for (star of [1,2,3,4,5]; track star) {
+            <span class="star" [class.filled]="star <= (product?.rating || 0)">★</span>
+          }
         </div>
-        <span class="rating-text">4.5/5</span>
+        <span class="rating-text">{{ product?.rating || 0 }}/5</span>
       </div>
 
       <!-- Price -->
@@ -34,6 +32,24 @@
         This graphic t-shirt which is perfect for any occasion. Crafted from a
         soft and breathable fabric, it offers superior comfort and style.
       </p>
+
+      <!-- Product Details -->
+      @if (product?.brand || product?.type) {
+        <div class="product-details">
+          @if (product?.brand) {
+            <div class="detail-item">
+              <span class="detail-label">Brand:</span>
+              <span class="detail-value">{{ product?.brand?.name }}</span>
+            </div>
+          }
+          @if (product?.type) {
+            <div class="detail-item">
+              <span class="detail-label">Style:</span>
+              <span class="detail-value">{{ product?.type?.name }}</span>
+            </div>
+          }
+        </div>
+      }
 
       <app-gray-line></app-gray-line>
 

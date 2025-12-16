@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PRODUCTS_DATA } from '../../../data/products.data';
 import { CartService } from '../../../entities/cart/api/cart.service';
 import { CartToastComponent } from '../../../entities/cart/ui/cart-toast/cart-toast.component';
+import { ProductService } from '../../../entities/product/api/product.service';
 import { Product } from '../../../entities/product/model/product';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { QuantityControlComponent } from '../../../shared/ui/quantity-control/quantity-control.component';
 import { SizeSelectorComponent } from '../../../shared/ui/size-selector/size-selector.component';
+import { IMAGES_BASE_URL } from '../../../urls';
 
 @Component({
   selector: 'app-product-detail',
@@ -34,13 +35,27 @@ export class ProductDetailComponent implements OnInit {
   route = inject(ActivatedRoute);
   cartService = inject(CartService);
   router = inject(Router);
+  productService = inject(ProductService);
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
-      this.product =
-        PRODUCTS_DATA.rows.find((p) => p.id.toString() === productId) || null;
+      this.productService.getProduct(productId).subscribe({
+        next: (product) => {
+          this.product = product;
+        },
+        error: (error) => {
+          console.error('Error loading product:', error);
+          this.product = null;
+        },
+      });
     }
+  }
+
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) return imagePath;
+    return IMAGES_BASE_URL + imagePath;
   }
 
   get currentPrice() {

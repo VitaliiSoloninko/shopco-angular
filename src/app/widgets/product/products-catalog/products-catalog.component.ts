@@ -30,7 +30,7 @@ export class ProductsCatalogComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
-  allProducts = this.productService.getAllProducts();
+  allProducts: Product[] = [];
 
   // --- SEARCH ---
   searchValue = '';
@@ -38,6 +38,17 @@ export class ProductsCatalogComponent implements OnInit {
   private searchSub?: Subscription;
 
   ngOnInit() {
+    // Load products from backend
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        this.allProducts = products;
+        this.applyFilters();
+      },
+      error: (error) => {
+        console.error('Error loading products:', error);
+      },
+    });
+
     // Initial sort and filters from query params
     this.route.queryParams.subscribe((params) => {
       if (params['sort']) {

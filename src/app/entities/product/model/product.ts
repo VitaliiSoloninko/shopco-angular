@@ -10,6 +10,14 @@ export interface Product {
   brandId: number;
   createdAt: string;
   updatedAt: string;
+  brand?: {
+    id: number;
+    name: string;
+  };
+  type?: {
+    id: number;
+    name: string;
+  };
 }
 
 export interface ProductCreateDto {

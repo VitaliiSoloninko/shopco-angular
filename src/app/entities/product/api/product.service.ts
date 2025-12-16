@@ -71,7 +71,13 @@ export class ProductService {
   getProductsCount(): Observable<number> {
     return this.getProducts().pipe(map((response) => response.total));
   }
-  getAllProducts(): Product[] {
+
+  getAllProducts(): Observable<Product[]> {
+    return this.getProducts().pipe(map((response) => response.products));
+  }
+
+  // Get all products from local data (for development)
+  getAllProductsLocal(): Product[] {
     return PRODUCTS_DATA.rows;
   }
 
@@ -124,19 +130,25 @@ export class ProductService {
     }
   }
 
-  getNewestProducts(count: number = 4): Product[] {
-    return [...PRODUCTS_DATA.rows]
-      .sort((a, b) => {
-        return (
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-      })
-      .slice(0, count);
+  getNewestProducts(count: number = 4): Observable<Product[]> {
+    return this.getAllProducts().pipe(
+      map((products) =>
+        [...products]
+          .sort((a, b) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+          })
+          .slice(0, count)
+      )
+    );
   }
 
-  getTopRatedProducts(count: number = 4): Product[] {
-    return [...PRODUCTS_DATA.rows]
-      .sort((a, b) => b.rating - a.rating)
-      .slice(0, count);
+  getTopRatedProducts(count: number = 4): Observable<Product[]> {
+    return this.getAllProducts().pipe(
+      map((products) =>
+        [...products].sort((a, b) => b.rating - a.rating).slice(0, count)
+      )
+    );
   }
 }
