@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuantityControlComponent } from '../../../../shared/ui/quantity-control/quantity-control.component';
+import { IMAGES_BASE_URL } from '../../../../urls';
 import { CartItem } from '../../model/cart-item';
 
 @Component({
@@ -12,8 +13,8 @@ import { CartItem } from '../../model/cart-item';
 })
 export class CartItemComponent {
   cartItem = input<CartItem>();
-  quantityChanged = output<{ id: string; quantity: number }>();
-  itemRemoved = output<string>();
+  quantityChanged = output<{ id: string | number; quantity: number }>();
+  itemRemoved = output<string | number>();
   quantitySize: 'big' | 'medium' | 'small' = 'medium';
   private router = inject(Router);
 
@@ -51,5 +52,11 @@ export class CartItemComponent {
     if (item) {
       this.itemRemoved.emit(item.id);
     }
+  }
+
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) return imagePath;
+    return IMAGES_BASE_URL + imagePath;
   }
 }

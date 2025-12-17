@@ -8,6 +8,7 @@ export const BRANDS_URL = BASE_URL + '/api/brands';
 export const TYPES_URL = BASE_URL + '/api/types';
 export const USERS_URL = BASE_URL + '/api/users';
 export const PRODUCTS_URL = BASE_URL + '/api/products';
+export const CART_URL = BASE_URL + '/api/cart';
 export const IMAGES_BASE_URL = BASE_URL + '/uploads/products/';
 
 export const LOGIN_URL = BASE_URL + '/api/auth/login';

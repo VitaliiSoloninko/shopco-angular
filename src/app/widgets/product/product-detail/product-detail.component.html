@@ -14,7 +14,9 @@
       <div class="rating-section">
         <div class="stars">
           @for (star of [1,2,3,4,5]; track star) {
-            <span class="star" [class.filled]="star <= (product?.rating || 0)">★</span>
+          <span class="star" [class.filled]="star <= (product?.rating || 0)"
+            >★</span
+          >
           }
         </div>
         <span class="rating-text">{{ product?.rating || 0 }}/5</span>
@@ -35,20 +37,19 @@
 
       <!-- Product Details -->
       @if (product?.brand || product?.type) {
-        <div class="product-details">
-          @if (product?.brand) {
-            <div class="detail-item">
-              <span class="detail-label">Brand:</span>
-              <span class="detail-value">{{ product?.brand?.name }}</span>
-            </div>
-          }
-          @if (product?.type) {
-            <div class="detail-item">
-              <span class="detail-label">Style:</span>
-              <span class="detail-value">{{ product?.type?.name }}</span>
-            </div>
-          }
+      <div class="product-details">
+        @if (product?.brand) {
+        <div class="detail-item">
+          <span class="detail-label">Brand:</span>
+          <span class="detail-value">{{ product?.brand?.name }}</span>
         </div>
+        } @if (product?.type) {
+        <div class="detail-item">
+          <span class="detail-label">Style:</span>
+          <span class="detail-value">{{ product?.type?.name }}</span>
+        </div>
+        }
+      </div>
       }
 
       <app-gray-line></app-gray-line>

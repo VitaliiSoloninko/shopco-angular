@@ -1,13 +1,13 @@
 import { Product } from '../../product/model/product';
 
 export interface CartItem {
-  id: string;
+  id: string | number;
   product: Product;
   selectedSize: string;
   selectedColor?: string;
   quantity: number;
   maxQuantity?: number;
-  addedAt?: Date;
+  addedAt?: Date | string;
 }
 
 export interface CartSummary {
@@ -19,6 +19,23 @@ export interface CartSummary {
 }
 
 export interface Cart {
+  items: CartItem[];
+  summary: CartSummary;
+}
+
+// API DTOs
+export interface AddToCartDto {
+  productId: number;
+  quantity: number;
+  selectedSize: string;
+  selectedColor?: string;
+}
+
+export interface UpdateCartItemDto {
+  quantity: number;
+}
+
+export interface CartResponse {
   items: CartItem[];
   summary: CartSummary;
 }

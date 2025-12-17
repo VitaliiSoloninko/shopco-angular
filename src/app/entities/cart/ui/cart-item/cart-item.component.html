@@ -1,7 +1,7 @@
 @if (cartItem(); as item) {
 <div class="cart-item">
   <div class="item-image" (click)="goToProductDetail()">
-    <img [src]="item.product.img" alt="Image" />
+    <img [src]="getImageUrl(item.product.img)" alt="Image" />
   </div>
 
   <div class="item-content">
