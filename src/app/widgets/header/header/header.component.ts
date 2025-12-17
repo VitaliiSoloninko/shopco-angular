@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CartService } from '../../../entities/cart/api/cart.service';
+import { CartState } from '../../../entities/cart/model/cart.state';
 import { AuthService } from '../../../entities/user/api/auth.service';
 import { TokenService } from '../../../entities/user/api/token.service';
 import { UserState } from '../../../entities/user/model/user.state';
@@ -23,12 +23,12 @@ import { ProfileDropdownComponent } from '../profile-dropdown/profile-dropdown.c
 export class HeaderComponent {
   isMobileMenuOpen = false;
   userState = inject(UserState);
-  private cartService = inject(CartService);
+  private cartState = inject(CartState);
   private authService = inject(AuthService);
   private tokenService = inject(TokenService);
 
   get cartItemsCount() {
-    return this.cartService.itemsCount();
+    return this.cartState.itemsCount();
   }
 
   get isAuthenticated() {

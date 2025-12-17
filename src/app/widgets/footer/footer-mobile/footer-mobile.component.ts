@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CartService } from '../../../entities/cart/api/cart.service';
+import { CartState } from '../../../entities/cart/model/cart.state';
 import { BadgeComponent } from '../../../shared/ui/badge/badge.component';
 
 @Component({
@@ -10,9 +10,9 @@ import { BadgeComponent } from '../../../shared/ui/badge/badge.component';
   styleUrl: './footer-mobile.component.scss',
 })
 export class FooterMobileComponent {
-  private cartService = inject(CartService);
+  private cartState = inject(CartState);
 
   get cartItemsCount() {
-    return this.cartService.itemsCount();
+    return this.cartState.itemsCount();
   }
 }

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CartService } from '../../../entities/cart/api/cart.service';
+import { CartState } from '../../../entities/cart/model/cart.state';
 import { AuthService } from '../../../entities/user/api/auth.service';
 import { UserState } from '../../../entities/user/model/user.state';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
 
   private authService = inject(AuthService);
   private userState = inject(UserState);
-  private cartService = inject(CartService);
+  private cartState = inject(CartState);
   private router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {}
@@ -62,7 +62,7 @@ export class LoginFormComponent implements OnInit {
         this.userState.setAccessToken(response.access_token);
 
         // Sync cart from memory to backend
-        this.cartService.syncCartAfterLogin();
+        this.cartState.syncCartAfterLogin();
 
         this.isLoading = false;
         // navigate to home after successful login

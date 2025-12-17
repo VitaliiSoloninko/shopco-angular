@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CartService } from '../../../entities/cart/api/cart.service';
+import { CartState } from '../../../entities/cart/model/cart.state';
 import { CartToastComponent } from '../../../entities/cart/ui/cart-toast/cart-toast.component';
 import { ProductService } from '../../../entities/product/api/product.service';
 import { Product } from '../../../entities/product/model/product';
@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
   private toastTimeout: any;
 
   route = inject(ActivatedRoute);
-  cartService = inject(CartService);
+  cartState = inject(CartState);
   router = inject(Router);
   productService = inject(ProductService);
 
@@ -87,7 +87,7 @@ export class ProductDetailComponent implements OnInit {
       alert('Please select size and quantity');
       return;
     }
-    this.cartService.addToCart(this.product, this.selectedSize, this.quantity);
+    this.cartState.addToCart(this.product, this.selectedSize, this.quantity);
 
     this.isToastOpen = true;
     clearTimeout(this.toastTimeout);

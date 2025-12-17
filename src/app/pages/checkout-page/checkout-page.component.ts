@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartService } from '../../entities/cart/api/cart.service';
+import { CartState } from '../../entities/cart/model/cart.state';
 import { UserAddress } from '../../entities/user/model/user-address';
 import { UserName } from '../../entities/user/model/user-name';
 import { AddressFormComponent } from '../../entities/user/ui/address-form/address-form.component';
@@ -18,10 +18,10 @@ export class CheckoutPageComponent {
   userAddress: UserAddress | undefined;
 
   private router = inject(Router);
-  private cartService = inject(CartService);
+  private cartState = inject(CartState);
 
   get cartSummary() {
-    return this.cartService.cart().summary;
+    return this.cartState.cart().summary;
   }
 
   onAddressChange(address: UserAddress) {
@@ -36,7 +36,7 @@ export class CheckoutPageComponent {
     const order = {
       user: this.userName,
       address: this.userAddress,
-      cart: this.cartService.cart(),
+      cart: this.cartState.cart(),
     };
     console.log('Order placed:', order);
 
