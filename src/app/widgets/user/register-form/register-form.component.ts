@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CartService } from '../../../entities/cart/api/cart.service';
 import { AuthService } from '../../../entities/user/api/auth.service';
 import { UserState } from '../../../entities/user/model/user.state';
 import { TextInputComponent } from '../../../shared/ui/inputs/text-input/text-input.component';
@@ -26,6 +27,7 @@ export class RegisterFormComponent implements OnInit {
 
   private authService = inject(AuthService);
   private userState = inject(UserState);
+  private cartService = inject(CartService);
   private router = inject(Router);
 
   constructor(private formBuilder: FormBuilder) {}
@@ -60,6 +62,10 @@ export class RegisterFormComponent implements OnInit {
       next: (response) => {
         // Save token in UserState
         this.userState.setAccessToken(response.access_token);
+
+        // Sync cart from memory to backend
+        this.cartService.syncCartAfterLogin();
+
         this.isLoading = false;
         console.log('Registration successful:', response);
         // After successful registration, the user is automatically authenticated

@@ -3,6 +3,7 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { CART_URL } from '../../../urls';
 import { Product } from '../../product/model/product';
+import { AuthService } from '../../user/api/auth.service';
 import {
   AddToCartDto,
   Cart,
@@ -17,6 +18,7 @@ import {
 })
 export class CartService {
   private http = inject(HttpClient);
+  private authService = inject(AuthService);
   private cartItems = signal<CartItem[]>([]);
   private cartSummarySignal = signal<CartSummary>({
     subtotal: 0,
@@ -25,7 +27,6 @@ export class CartService {
     deliveryFee: 0,
     total: 0,
   });
-  private useBackend = true; // Toggle for backend usage
 
   // Computed signal for complete cart
   cart = computed(
@@ -42,15 +43,9 @@ export class CartService {
   );
 
   constructor() {
-    if (this.useBackend) {
-      this.loadCartFromBackend().subscribe({
-        error: () => {
-          // Fallback to localStorage if backend fails
-          this.loadCartFromStorage();
-        },
-      });
-    } else {
-      this.loadCartFromStorage();
+    // Load cart from backend if user is authenticated
+    if (this.authService.isAuthenticated()) {
+      this.loadCartFromBackend().subscribe();
     }
   }
 
@@ -61,7 +56,8 @@ export class CartService {
     quantity: number,
     selectedColor?: string
   ): void {
-    if (this.useBackend) {
+    if (this.authService.isAuthenticated()) {
+      // User is authenticated - save to backend
       const dto: AddToCartDto = {
         productId: product.id,
         quantity,
@@ -71,12 +67,13 @@ export class CartService {
       this.addToCartBackend(dto).subscribe({
         error: (error) => {
           console.error('Error adding to cart:', error);
-          // Fallback to localStorage
-          this.addToCartLocal(product, selectedSize, quantity, selectedColor);
+          // On error, add to memory only
+          this.addToCartMemory(product, selectedSize, quantity, selectedColor);
         },
       });
     } else {
-      this.addToCartLocal(product, selectedSize, quantity, selectedColor);
+      // User not authenticated - save to memory only
+      this.addToCartMemory(product, selectedSize, quantity, selectedColor);
     }
   }
 
@@ -87,46 +84,52 @@ export class CartService {
       return;
     }
 
-    if (this.useBackend) {
+    if (this.authService.isAuthenticated()) {
+      // User is authenticated - update on backend
       this.updateCartItemBackend(itemId.toString(), { quantity }).subscribe({
         error: (error) => {
           console.error('Error updating quantity:', error);
-          // Fallback to localStorage
-          this.updateQuantityLocal(itemId.toString(), quantity);
+          // On error, update memory only
+          this.updateQuantityMemory(itemId, quantity);
         },
       });
     } else {
-      this.updateQuantityLocal(itemId.toString(), quantity);
+      // User not authenticated - update memory only
+      this.updateQuantityMemory(itemId, quantity);
     }
   }
 
   // Remove item from cart
   removeFromCart(itemId: string | number): void {
-    if (this.useBackend) {
+    if (this.authService.isAuthenticated()) {
+      // User is authenticated - delete from backend
       this.removeCartItemBackend(itemId.toString()).subscribe({
         error: (error) => {
           console.error('Error removing item:', error);
-          // Fallback to localStorage
-          this.removeFromCartLocal(itemId.toString());
+          // On error, remove from memory only
+          this.removeFromCartMemory(itemId);
         },
       });
     } else {
-      this.removeFromCartLocal(itemId.toString());
+      // User not authenticated - remove from memory only
+      this.removeFromCartMemory(itemId);
     }
   }
 
   // Clear entire cart
   clearCart(): void {
-    if (this.useBackend) {
+    if (this.authService.isAuthenticated()) {
+      // User is authenticated - clear on backend
       this.clearCartBackend().subscribe({
         error: (error) => {
           console.error('Error clearing cart:', error);
-          // Fallback to localStorage
-          this.clearCartLocal();
+          // On error, clear memory only
+          this.clearCartMemory();
         },
       });
     } else {
-      this.clearCartLocal();
+      // User not authenticated - clear memory only
+      this.clearCartMemory();
     }
   }
 
@@ -135,38 +138,30 @@ export class CartService {
     return this.cart();
   }
 
+  // Sync cart to backend after login
+  syncCartAfterLogin(): void {
+    const items = this.cartItems();
+    if (items.length > 0 && this.authService.isAuthenticated()) {
+      // Send all items to backend
+      items.forEach((item) => {
+        const dto: AddToCartDto = {
+          productId: item.product.id,
+          quantity: item.quantity,
+          selectedSize: item.selectedSize,
+          selectedColor: item.selectedColor,
+        };
+        this.addToCartBackend(dto).subscribe();
+      });
+    }
+  }
+
   // Private methods
   private generateItemId(): string {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);
   }
 
-  private saveCartToStorage(): void {
-    localStorage.setItem('cart', JSON.stringify(this.cartItems()));
-  }
-
-  private loadCartFromStorage(): void {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      try {
-        const parsedItems = JSON.parse(savedCart);
-        // Verify that data is an array
-        if (Array.isArray(parsedItems)) {
-          this.cartItems.set(parsedItems);
-        } else {
-          console.warn(
-            'Invalid cart data in localStorage, resetting to empty array'
-          );
-          this.cartItems.set([]);
-        }
-      } catch (error) {
-        console.error('Error loading cart from storage:', error);
-        this.cartItems.set([]); // Set empty array on error
-      }
-    }
-  }
-
-  // Local methods (localStorage fallback)
-  private addToCartLocal(
+  // Memory-only methods (for unauthenticated users)
+  private addToCartMemory(
     product: Product,
     selectedSize: string,
     quantity: number,
@@ -199,33 +194,32 @@ export class CartService {
       };
       this.cartItems.set([...currentItems, newItem]);
     }
-    this.updateLocalSummary();
-    this.saveCartToStorage();
+    this.updateMemorySummary();
   }
 
-  private updateQuantityLocal(itemId: string, quantity: number): void {
+  private updateQuantityMemory(
+    itemId: string | number,
+    quantity: number
+  ): void {
     const updatedItems = this.cartItems().map((item) =>
       item.id === itemId ? { ...item, quantity } : item
     );
     this.cartItems.set(updatedItems);
-    this.updateLocalSummary();
-    this.saveCartToStorage();
+    this.updateMemorySummary();
   }
 
-  private removeFromCartLocal(itemId: string): void {
+  private removeFromCartMemory(itemId: string | number): void {
     const updatedItems = this.cartItems().filter((item) => item.id !== itemId);
     this.cartItems.set(updatedItems);
-    this.updateLocalSummary();
-    this.saveCartToStorage();
+    this.updateMemorySummary();
   }
 
-  private clearCartLocal(): void {
+  private clearCartMemory(): void {
     this.cartItems.set([]);
-    this.updateLocalSummary();
-    this.saveCartToStorage();
+    this.updateMemorySummary();
   }
 
-  private updateLocalSummary(): void {
+  private updateMemorySummary(): void {
     const items = this.cartItems();
     const subtotal = items.reduce(
       (sum, item) =>
