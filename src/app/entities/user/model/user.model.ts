@@ -7,6 +7,7 @@ export interface User {
   city?: string;
   postalCode?: string;
   country?: string;
+  phone?: string;
   role: 'user' | 'admin';
   isActive: boolean;
   createdAt?: string;
@@ -32,6 +33,7 @@ export interface UpdateUserDto {
   city?: string;
   postalCode?: string;
   country?: string;
+  phone?: string;
 }
 
 export interface AdminCreateUserDto {
@@ -43,6 +45,7 @@ export interface AdminCreateUserDto {
   city?: string;
   postalCode?: string;
   country?: string;
+  phone?: string;
   role: 'user' | 'admin';
   isActive: boolean;
 }
@@ -54,6 +57,7 @@ export interface AdminUpdateUserDto {
   city?: string;
   postalCode?: string;
   country?: string;
+  phone?: string;
   role?: 'user' | 'admin';
   isActive?: boolean;
 }
@@ -67,6 +71,7 @@ export interface UserProfile {
   city: string;
   postalCode: string;
   country: string;
+  phone?: string;
   role: 'user' | 'admin';
   isActive: boolean;
   fullName: string; // computed property

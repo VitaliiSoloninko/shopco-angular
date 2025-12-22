@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -18,6 +18,9 @@ export class UserNameFormComponent {
   userNameForm: FormGroup;
   userNameChange = output<UserName>();
 
+  // Input for initial values
+  initialValue = input<UserName | null>(null);
+
   constructor(private fb: FormBuilder) {
     this.userNameForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -26,6 +29,16 @@ export class UserNameFormComponent {
 
     this.userNameForm.valueChanges.subscribe((value: UserName) => {
       this.userNameChange.emit(value);
+    });
+
+    // Autofill the form when initial values are received
+    effect(() => {
+      const initial = this.initialValue();
+      if (initial) {
+        this.userNameForm.patchValue(initial, { emitEvent: false });
+        // Emit initial value
+        this.userNameChange.emit(initial);
+      }
     });
   }
 }

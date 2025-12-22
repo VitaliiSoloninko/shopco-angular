@@ -1,7 +1,7 @@
 <div class="order-card">
   <div class="order-header">
     <div class="order-info">
-      <h3 class="order-id">Order #{{ order.id }}</h3>
+      <h3 class="order-id">Order #{{ order.orderNumber }}</h3>
       <div class="order-date">{{ formatDate(order.createdAt) }}</div>
     </div>
     <div class="order-status">
@@ -24,22 +24,27 @@
     </div>
     <div class="customer-details">
       <div class="customer-name">
-        {{ order.user.firstName }} {{ order.user.lastName }}
+        {{ order.firstName }} {{ order.lastName }}
       </div>
-      <div class="customer-email">{{ order.user.email }}</div>
+      <div class="customer-email">{{ order.email }}</div>
       <div class="customer-address">
-        {{ order.user.street }}, {{ order.user.city }},
-        {{ order.user.postalCode }}, {{ order.user.country }}
+        {{ order.street }}, {{ order.city }}, {{ order.postalCode }},
+        {{ order.country }}
       </div>
+      @if (order.phone) {
+      <div class="customer-phone">Phone: {{ order.phone }}</div>
+      } @if (order.notes) {
+      <div class="customer-notes">Notes: {{ order.notes }}</div>
+      }
     </div>
   </div>
 
   <div class="order-items">
     <div class="items-header">
-      <h4>Items ({{ order.cart.items.length }})</h4>
+      <h4>Items ({{ order.items.length }})</h4>
     </div>
     <div class="items-list">
-      @for (item of order.cart.items; track item.id) {
+      @for (item of order.items; track item.id) {
       <div class="item-row">
         <img
           [src]="item.productImage"
@@ -54,7 +59,7 @@
         </div>
         <div class="item-price">
           <div class="price-each">${{ item.price }}</div>
-          <div class="price-total">${{ item.total }}</div>
+          <div class="price-total">${{ item.subtotal }}</div>
         </div>
       </div>
       }
@@ -64,21 +69,21 @@
   <div class="order-summary">
     <div class="summary-row">
       <span>Subtotal:</span>
-      <span>${{ order.cart.summary.subtotal }}</span>
+      <span>${{ order.subtotal }}</span>
     </div>
-    @if (order.cart.summary.discount > 0) {
-    <div class="summary-row discount">
-      <span>Discount ({{ order.cart.summary.discountPercentage }}%):</span>
-      <span>-${{ order.cart.summary.discount }}</span>
+    @if (order.tax > 0) {
+    <div class="summary-row">
+      <span>Tax:</span>
+      <span>${{ order.tax }}</span>
     </div>
     }
     <div class="summary-row">
-      <span>Delivery Fee:</span>
-      <span>${{ order.cart.summary.deliveryFee }}</span>
+      <span>Shipping:</span>
+      <span>${{ order.shippingCost }}</span>
     </div>
     <div class="summary-row total">
       <span>Total:</span>
-      <span>${{ order.cart.summary.total }}</span>
+      <span>${{ order.totalAmount }}</span>
     </div>
   </div>
 

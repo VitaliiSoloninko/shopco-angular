@@ -5,6 +5,7 @@ export interface UserAddress {
   city: string;
   postalCode: string;
   country: string;
+  phone: string;
 }
 
 export function extractAddressFromUser(user: User): UserAddress {
@@ -13,5 +14,6 @@ export function extractAddressFromUser(user: User): UserAddress {
     city: user.city || '',
     postalCode: user.postalCode || '',
     country: user.country || '',
+    phone: user.phone || '',
   };
 }

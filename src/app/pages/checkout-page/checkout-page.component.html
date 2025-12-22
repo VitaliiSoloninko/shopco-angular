@@ -5,14 +5,22 @@
       <div class="checkout-user-info">
         <h2 class="h2 mb-24">User Information</h2>
         <app-user-name-form
+          [initialValue]="initialUserName()"
           (userNameChange)="onUserNameChange($event)"
         ></app-user-name-form>
       </div>
       <div class="checkout-user-info">
         <h2 class="h2 mb-24">Shipping Address</h2>
         <app-address-form
+          [initialValue]="initialAddress()"
           (addressChange)="onAddressChange($event)"
         ></app-address-form>
+      </div>
+      <div class="checkout-user-info">
+        <h2 class="h2 mb-24">Order Notes</h2>
+        <app-order-notes-form
+          (notesChange)="onNotesChange($event)"
+        ></app-order-notes-form>
       </div>
     </div>
     <div class="checkout-right">

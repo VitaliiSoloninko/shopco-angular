@@ -74,7 +74,7 @@ export class DashboardPageComponent {
 
   private calculateTotalRevenue(): number {
     return ORDERS.reduce((total, order) => {
-      return total + order.cart.summary.total;
+      return total + order.totalAmount;
     }, 0);
   }
 }

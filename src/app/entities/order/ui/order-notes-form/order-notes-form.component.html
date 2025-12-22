@@ -1,0 +1,12 @@
+<form class="order-notes-form" [formGroup]="notesForm">
+  <div class="control">
+    <label class="label" for="notes">Order Notes (Optional)</label>
+    <textarea
+      id="notes"
+      formControlName="notes"
+      class="textarea"
+      placeholder="Add any special instructions for your order..."
+      rows="3"
+    ></textarea>
+  </div>
+</form>
