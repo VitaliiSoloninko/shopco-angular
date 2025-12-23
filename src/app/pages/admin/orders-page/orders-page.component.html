@@ -6,7 +6,17 @@
   <app-gray-line></app-gray-line>
 
   <div class="orders-container">
-    @if (orders().length > 0) { @for (order of orders(); track order.id) {
+    @if (isLoading()) {
+    <div class="loading-state">
+      <p>Loading orders...</p>
+    </div>
+    } @else if (error()) {
+    <div class="error-state">
+      <p>{{ error() }}</p>
+      <button (click)="loadOrders()">Retry</button>
+    </div>
+    } @else if (orders().length > 0) { @for (order of orders(); track order.id)
+    {
     <app-admin-order-card
       [order]="order"
       (edit)="onEditOrder($event)"

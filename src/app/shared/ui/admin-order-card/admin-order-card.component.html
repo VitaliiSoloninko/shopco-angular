@@ -20,15 +20,15 @@
 
   <div class="customer-info">
     <div class="customer-header">
-      <h4>Customer Information</h4>
+      <h4>User Information</h4>
     </div>
     <div class="customer-details">
       <div class="customer-name">
         {{ order.firstName }} {{ order.lastName }}
       </div>
-      <div class="customer-email">{{ order.email }}</div>
+      <div class="customer-email">Email: {{ order.email }}</div>
       <div class="customer-address">
-        {{ order.street }}, {{ order.city }}, {{ order.postalCode }},
+        Address: {{ order.street }}, {{ order.city }}, {{ order.postalCode }},
         {{ order.country }}
       </div>
       @if (order.phone) {
@@ -41,13 +41,13 @@
 
   <div class="order-items">
     <div class="items-header">
-      <h4>Items ({{ order.items.length }})</h4>
+      <h4>Products Information ({{ order.items.length }})</h4>
     </div>
     <div class="items-list">
       @for (item of order.items; track item.id) {
       <div class="item-row">
         <img
-          [src]="item.productImage"
+          [src]="getImageUrl(item.productImage)"
           [alt]="item.productName"
           class="item-image"
         />

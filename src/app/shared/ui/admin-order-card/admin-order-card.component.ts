@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Order, OrderStatus } from '../../../data/orders.data';
+import { IMAGES_BASE_URL } from '../../../urls';
 
 @Component({
   selector: 'app-admin-order-card',
@@ -10,7 +11,6 @@ import { Order, OrderStatus } from '../../../data/orders.data';
 })
 export class AdminOrderCardComponent {
   @Input() order!: Order;
-
   @Output() edit = new EventEmitter<Order>();
   @Output() delete = new EventEmitter<number>();
   @Output() statusChange = new EventEmitter<{
@@ -63,5 +63,13 @@ export class AdminOrderCardComponent {
       hour: '2-digit',
       minute: '2-digit',
     });
+  }
+
+  getImageUrl(imagePath: string): string {
+    if (!imagePath) return '';
+    // If image path already includes http/https, return as is
+    if (imagePath.startsWith('http')) return imagePath;
+    // Otherwise, prepend base URL
+    return IMAGES_BASE_URL + imagePath;
   }
 }
