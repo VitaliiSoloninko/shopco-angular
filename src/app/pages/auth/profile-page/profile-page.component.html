@@ -7,6 +7,9 @@
     <div class="profile-meta">
       <h2>{{ userState.fullName() }}</h2>
       <p class="email">{{ userState.currentUser()?.email }}</p>
+      @if (userState.currentUser()?.phone) {
+      <p class="phone">{{ userState.currentUser()?.phone }}</p>
+      }
       <span class="role-badge" [class.admin]="userState.isAdmin()">
         {{ userState.currentUser()?.role }}
       </span>

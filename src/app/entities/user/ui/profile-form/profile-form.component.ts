@@ -31,6 +31,7 @@ export class ProfileFormComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: [user?.firstName || '', Validators.required],
       lastName: [user?.lastName || '', Validators.required],
+      phone: [user?.phone || ''],
       street: [user?.street || ''],
       city: [user?.city || ''],
       postalCode: [user?.postalCode || ''],
@@ -42,6 +43,7 @@ export class ProfileFormComponent implements OnInit {
     return {
       firstName: this.profileForm.get('firstName')!,
       lastName: this.profileForm.get('lastName')!,
+      phone: this.profileForm.get('phone')!,
       street: this.profileForm.get('street')!,
       city: this.profileForm.get('city')!,
       postalCode: this.profileForm.get('postalCode')!,

@@ -114,6 +114,7 @@ export class AuthService {
       city: user.city || '',
       postalCode: user.postalCode || '',
       country: user.country || '',
+      phone: user.phone,
       role: user.role,
       isActive: user.isActive,
       fullName: `${user.firstName} ${user.lastName}`.trim(),
