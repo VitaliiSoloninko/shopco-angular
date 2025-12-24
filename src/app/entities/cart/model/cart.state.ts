@@ -34,13 +34,6 @@ export class CartState {
     this.cartItems().reduce((sum, item) => sum + item.quantity, 0)
   );
 
-  constructor() {
-    // Load cart from backend if user is authenticated
-    if (this.authService.isAuthenticated()) {
-      this.loadCart();
-    }
-  }
-
   // Public methods
   addToCart(
     product: Product,
@@ -171,18 +164,25 @@ export class CartState {
     }
   }
 
-  // Private methods
-  private loadCart(): void {
+  // Load cart from backend (public method for app initialization)
+  loadCart(): void {
+    if (!this.authService.isAuthenticated()) {
+      return;
+    }
+
     this.cartService.getCart().subscribe({
       next: (response) => {
         this.cartItems.set(response.items);
         this.cartSummary.set(response.summary);
+        console.log('🛒 Cart loaded:', response.items.length, 'items');
       },
       error: (error) => {
         console.error('Error loading cart:', error);
       },
     });
   }
+
+  // Private methods
 
   private generateItemId(): string {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);

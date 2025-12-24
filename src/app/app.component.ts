@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CartState } from './entities/cart/model/cart.state';
 import { AuthService } from './entities/user/api/auth.service';
 
 @Component({
@@ -11,6 +12,7 @@ import { AuthService } from './entities/user/api/auth.service';
 })
 export class AppComponent implements OnInit {
   private authService = inject(AuthService);
+  private cartState = inject(CartState);
 
   ngOnInit() {
     // Initialize authentication state on app start
@@ -21,7 +23,12 @@ export class AppComponent implements OnInit {
           console.log('✅ Session restored from refresh token');
           // Load user profile after successful token refresh
           this.authService.refreshUserData().subscribe({
-            next: () => console.log('User profile loaded'),
+            next: () => {
+              console.log('User profile loaded');
+              // Load cart after profile is loaded
+              this.cartState.loadCart();
+              console.log('Cart loading initiated');
+            },
             error: (error) =>
               console.error('Failed to load user profile:', error),
           });
