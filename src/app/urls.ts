@@ -12,9 +12,11 @@ export const CART_URL = BASE_URL + '/api/cart';
 export const ORDERS_URL = BASE_URL + '/api/orders';
 export const IMAGES_BASE_URL = BASE_URL + '/uploads/products/';
 
-export const LOGIN_URL = BASE_URL + '/api/auth/login';
 export const REGISTER_URL = BASE_URL + '/api/auth/register';
+export const LOGIN_URL = BASE_URL + '/api/auth/login';
+export const REFRESH_URL = BASE_URL + '/api/auth/refresh';
 export const PROFILE_URL = BASE_URL + '/api/auth/profile';
+export const LOGOUT_URL = BASE_URL + '/api/auth/logout';
 
 // Frontend URL configuration for the ShopCo application
 export const HOME = '/';

@@ -14,9 +14,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Initialize authentication state on app start
+    // Try to refresh access token from httpOnly cookie
     this.authService.initializeAuth().subscribe({
       next: (isAuthenticated) => {
-        console.log('Auth initialized:', isAuthenticated);
+        if (isAuthenticated) {
+          console.log('✅ Session restored from refresh token');
+          // Load user profile after successful token refresh
+          this.authService.refreshUserData().subscribe({
+            next: () => console.log('User profile loaded'),
+            error: (error) =>
+              console.error('Failed to load user profile:', error),
+          });
+        } else {
+          console.log('No valid session, user needs to login');
+        }
       },
       error: (error) => {
         console.error('Auth initialization failed:', error);

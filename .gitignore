@@ -43,3 +43,6 @@ Thumbs.db
 
 # Firebase
 .firebase/ 
+
+# Personal documentation
+REFRESH_TOKEN.md
