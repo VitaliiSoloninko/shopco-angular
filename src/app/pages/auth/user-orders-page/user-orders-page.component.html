@@ -18,8 +18,14 @@
   </div>
   } @else {
   <div class="empty-state">
-    <p>You haven't placed any orders yet.</p>
-    <a class="btn btn-primary" routerLink="/catalog">Start Shopping</a>
+    <app-empty-state
+      title="No orders found"
+      subtitle="You haven't placed any orders yet."
+      icon="search-x"
+      [showButton]="true"
+      buttonText="Start Shopping"
+      buttonRoute="/catalog"
+    ></app-empty-state>
   </div>
   }
 </div>

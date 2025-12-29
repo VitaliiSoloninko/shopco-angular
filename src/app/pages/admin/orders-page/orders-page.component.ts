@@ -4,10 +4,11 @@ import { AdminOrderService } from '../../../entities/order/api/admin-order.servi
 import { Order } from '../../../entities/order/model/order';
 import { AdminOrderCardComponent } from '../../../shared/ui/admin-order-card/admin-order-card.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
+import { EmptyStateComponent } from '../../../shared/ui/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-orders-page',
-  imports: [GrayLineComponent, AdminOrderCardComponent],
+  imports: [GrayLineComponent, AdminOrderCardComponent, EmptyStateComponent],
   templateUrl: './orders-page.component.html',
   styleUrl: './orders-page.component.scss',
 })

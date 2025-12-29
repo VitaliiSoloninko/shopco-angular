@@ -3,10 +3,11 @@ import { RouterLink } from '@angular/router';
 import { OrderService } from '../../../entities/order/api/order.service';
 import { Order } from '../../../entities/order/model/order';
 import { UserOrderCardComponent } from '../../../entities/order/ui/user-order-card/user-order-card.component';
+import { EmptyStateComponent } from '../../../shared/ui/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-user-orders-page',
-  imports: [UserOrderCardComponent, RouterLink],
+  imports: [UserOrderCardComponent, RouterLink, EmptyStateComponent],
   templateUrl: './user-orders-page.component.html',
   styleUrl: './user-orders-page.component.scss',
 })

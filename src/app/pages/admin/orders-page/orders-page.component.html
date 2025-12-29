@@ -24,7 +24,14 @@
     ></app-admin-order-card>
     } } @else {
     <div class="empty-state">
-      <p>No orders found</p>
+      <app-empty-state
+        title="No orders found"
+        subtitle="There are currently no orders to display"
+        icon="search-x"
+        [showButton]="true"
+        buttonText="Go to Dashboard"
+        buttonRoute="/admin/dashboard"
+      ></app-empty-state>
     </div>
     }
   </div>

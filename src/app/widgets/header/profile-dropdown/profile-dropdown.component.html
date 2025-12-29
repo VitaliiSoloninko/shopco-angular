@@ -9,16 +9,15 @@
 
   @if (isOpen()) {
   <div class="dropdown-menu">
-    <a class="dropdown-item" routerLink="/profile" (click)="closeDropdown()">
-      <img src="/images/svg/user.svg" alt="Profile" />
-      <span>Profile</span>
-    </a>
-
     <a class="dropdown-item" routerLink="/orders" (click)="closeDropdown()">
       <img src="/images/svg/shopping-bag.svg" alt="Orders" />
       <span>Orders</span>
     </a>
 
+    <a class="dropdown-item" routerLink="/profile" (click)="closeDropdown()">
+      <img src="/images/svg/user.svg" alt="Profile" />
+      <span>Profile</span>
+    </a>
     <a
       class="dropdown-item"
       routerLink="/profile/edit"

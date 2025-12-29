@@ -20,19 +20,6 @@
   margin-bottom: 3rem;
 }
 
-.empty-state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-  text-align: center;
-}
-
-.empty-state p {
-  font-size: 1.1rem;
-  margin: 0;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .entities-grid {
