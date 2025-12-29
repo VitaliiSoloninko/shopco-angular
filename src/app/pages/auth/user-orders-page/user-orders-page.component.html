@@ -1,0 +1,25 @@
+<h1 class="h1 mb-16">My Orders</h1>
+
+<div class="orders-page">
+  @if (isLoading()) {
+  <div class="loading-state">
+    <p>Loading your orders...</p>
+  </div>
+  } @else if (error()) {
+  <div class="error-state">
+    <p>{{ error() }}</p>
+    <button class="btn btn-primary" (click)="loadOrders()">Retry</button>
+  </div>
+  } @else if (orders().length > 0) {
+  <div class="orders-container">
+    @for (order of orders(); track order.id) {
+    <app-user-order-card [order]="order"></app-user-order-card>
+    }
+  </div>
+  } @else {
+  <div class="empty-state">
+    <p>You haven't placed any orders yet.</p>
+    <a class="btn btn-primary" routerLink="/catalog">Start Shopping</a>
+  </div>
+  }
+</div>

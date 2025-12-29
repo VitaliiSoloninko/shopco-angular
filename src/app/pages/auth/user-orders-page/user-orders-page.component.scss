@@ -1,0 +1,31 @@
+.orders-page {
+  max-width: 1280px;
+  margin: 0 auto;
+
+  .loading-state,
+  .error-state,
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    border-radius: 1.25rem;
+    border: 1px solid var(--grey-color);
+    background: var(--white-color);
+
+    p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    button,
+    a {
+      margin-top: 1rem;
+    }
+  }
+
+  .orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}

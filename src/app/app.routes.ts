@@ -24,6 +24,7 @@ import { LoginPageComponent } from './pages/auth/login-page/login-page.component
 import { ProfileEditPageComponent } from './pages/auth/profile-edit-page/profile-edit-page.component';
 import { ProfilePageComponent } from './pages/auth/profile-page/profile-page.component';
 import { RegisterPageComponent } from './pages/auth/register-page/register-page.component';
+import { UserOrdersPageComponent } from './pages/auth/user-orders-page/user-orders-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
@@ -72,6 +73,11 @@ export const routes: Routes = [
       {
         path: 'profile/edit',
         component: ProfileEditPageComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'orders',
+        component: UserOrdersPageComponent,
         canActivate: [authGuard],
       },
     ],

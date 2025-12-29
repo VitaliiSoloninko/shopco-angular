@@ -1,17 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Order, OrderStatus } from '../../../data/orders.data';
 import { IMAGES_BASE_URL } from '../../../urls';
 
 @Component({
   selector: 'app-admin-order-card',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './admin-order-card.component.html',
   styleUrl: './admin-order-card.component.scss',
 })
 export class AdminOrderCardComponent {
-  @Input() order!: Order;
-  @Output() edit = new EventEmitter<Order>();
+  order = input.required<Order>();
+
   @Output() delete = new EventEmitter<number>();
   @Output() statusChange = new EventEmitter<{
     orderId: number;
@@ -41,18 +40,14 @@ export class AdminOrderCardComponent {
     );
   }
 
-  onEdit() {
-    this.edit.emit(this.order);
-  }
-
   onDelete() {
-    this.delete.emit(this.order.id);
+    this.delete.emit(this.order().id);
   }
 
   onStatusChange(event: Event) {
     const select = event.target as HTMLSelectElement;
     const newStatus = select.value as OrderStatus;
-    this.statusChange.emit({ orderId: this.order.id, status: newStatus });
+    this.statusChange.emit({ orderId: this.order().id, status: newStatus });
   }
 
   formatDate(dateString: string): string {

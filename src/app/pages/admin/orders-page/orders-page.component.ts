@@ -48,18 +48,20 @@ export class OrdersPageComponent implements OnInit {
       return;
     }
 
-    this.orderService.cancelOrder(orderId).subscribe({
-      next: () => {
-        this.orders.update((orders) =>
-          orders.filter((order) => order.id !== orderId)
-        );
-        console.log('Order cancelled successfully');
-      },
-      error: (err) => {
-        console.error('Error cancelling order:', err);
-        alert('Failed to cancel order. Please try again.');
-      },
-    });
+    this.orderService
+      .updateOrderStatus(orderId, { status: 'cancelled' })
+      .subscribe({
+        next: (updatedOrder) => {
+          this.orders.update((orders) =>
+            orders.map((order) => (order.id === orderId ? updatedOrder : order))
+          );
+          console.log('Order cancelled successfully');
+        },
+        error: (err) => {
+          console.error('Error cancelling order:', err);
+          alert('Failed to cancel order. Please try again.');
+        },
+      });
   }
 
   onStatusChange(event: { orderId: number; status: OrderStatus }) {
