@@ -93,7 +93,7 @@ export class CheckoutPageComponent {
       tax: 0, // Can be calculated based on business logic
     };
 
-    this.orderService.createOrder(createOrderDto).subscribe({
+    this.orderService.createUserOrder(createOrderDto).subscribe({
       next: (order) => {
         console.log('Order created successfully:', order);
         // Navigate to payment page with order data

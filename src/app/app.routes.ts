@@ -25,6 +25,7 @@ import { ProfileEditPageComponent } from './pages/auth/profile-edit-page/profile
 import { ProfilePageComponent } from './pages/auth/profile-page/profile-page.component';
 import { RegisterPageComponent } from './pages/auth/register-page/register-page.component';
 import { UserOrdersPageComponent } from './pages/auth/user-orders-page/user-orders-page.component';
+import { CatalogPageComponent } from './pages/catalog-page/catalog-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { FavoritesPageComponent } from './pages/favorites-page/favorites-page.component';
 import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
@@ -34,7 +35,6 @@ import { SuccessPageComponent } from './pages/success-page/success-page.componen
 import { EmptyStateTestComponent } from './pages/test-pages/empty-state-test/empty-state-test.component';
 import { ImageUploadTestComponent } from './pages/test-pages/image-upload-test/image-upload-test.component';
 import { ModalTestComponent } from './pages/test-pages/modal-test/modal-test.component';
-import { CatalogPageComponent } from './pages/catalog-page/catalog-page.component';
 
 export const routes: Routes = [
   {

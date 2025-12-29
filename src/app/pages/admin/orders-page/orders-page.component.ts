@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrderStatus } from '../../../data/orders.data';
-import { OrderService } from '../../../entities/order/api/order.service';
+import { AdminOrderService } from '../../../entities/order/api/admin-order.service';
 import { Order } from '../../../entities/order/model/order';
 import { AdminOrderCardComponent } from '../../../shared/ui/admin-order-card/admin-order-card.component';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
@@ -12,7 +12,7 @@ import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.compon
   styleUrl: './orders-page.component.scss',
 })
 export class OrdersPageComponent implements OnInit {
-  private orderService = inject(OrderService);
+  private adminOrderService = inject(AdminOrderService);
 
   orders = signal<Order[]>([]);
   isLoading = signal<boolean>(false);
@@ -26,7 +26,7 @@ export class OrdersPageComponent implements OnInit {
     this.isLoading.set(true);
     this.error.set(null);
 
-    this.orderService.getOrders().subscribe({
+    this.adminOrderService.getAllOrders().subscribe({
       next: (orders) => {
         this.orders.set(orders);
         this.isLoading.set(false);
@@ -48,7 +48,7 @@ export class OrdersPageComponent implements OnInit {
       return;
     }
 
-    this.orderService
+    this.adminOrderService
       .updateOrderStatus(orderId, { status: 'cancelled' })
       .subscribe({
         next: (updatedOrder) => {
@@ -65,7 +65,7 @@ export class OrdersPageComponent implements OnInit {
   }
 
   onStatusChange(event: { orderId: number; status: OrderStatus }) {
-    this.orderService
+    this.adminOrderService
       .updateOrderStatus(event.orderId, { status: event.status })
       .subscribe({
         next: (updatedOrder) => {
