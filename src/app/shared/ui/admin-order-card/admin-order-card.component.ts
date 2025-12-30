@@ -1,7 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Order, OrderStatus } from '../../../data/orders.data';
-import { IMAGES_BASE_URL } from '../../../urls';
 import { OrderStatusBadgeComponent } from '../../../entities/order/ui/order-status-badge/order-status-badge.component';
+import { IMAGES_BASE_URL } from '../../../urls';
 
 @Component({
   selector: 'app-admin-order-card',
