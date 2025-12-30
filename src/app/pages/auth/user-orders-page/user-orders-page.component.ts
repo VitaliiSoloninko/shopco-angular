@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { OrderService } from '../../../entities/order/api/order.service';
 import { Order } from '../../../entities/order/model/order';
 import { UserOrderCardComponent } from '../../../entities/order/ui/user-order-card/user-order-card.component';
@@ -7,16 +6,16 @@ import { EmptyStateComponent } from '../../../shared/ui/empty-state/empty-state.
 
 @Component({
   selector: 'app-user-orders-page',
-  imports: [UserOrderCardComponent, RouterLink, EmptyStateComponent],
+  imports: [UserOrderCardComponent, EmptyStateComponent],
   templateUrl: './user-orders-page.component.html',
   styleUrl: './user-orders-page.component.scss',
 })
 export class UserOrdersPageComponent implements OnInit {
-  private orderService = inject(OrderService);
-
   orders = signal<Order[]>([]);
   isLoading = signal<boolean>(false);
   error = signal<string | null>(null);
+
+  private orderService = inject(OrderService);
 
   ngOnInit() {
     this.loadOrders();

@@ -4,9 +4,7 @@
       <h3 class="order-number">{{ order().orderNumber }}</h3>
       <span class="order-date">{{ order().createdAt | date : "medium" }}</span>
     </div>
-    <span class="status-badge" [ngClass]="getStatusClass(order().status)">
-      {{ getStatusText(order().status) }}
-    </span>
+    <app-order-status-badge [status]="order().status" />
   </div>
 
   <div class="order-body">
