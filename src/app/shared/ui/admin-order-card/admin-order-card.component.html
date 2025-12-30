@@ -6,6 +6,7 @@
       <div class="order-date">{{ formatDate(order().createdAt) }}</div>
     </div>
     <div class="order-status">
+      <app-order-status-badge [status]="order().status" />
       <select
         class="status-select"
         [value]="order().status"
