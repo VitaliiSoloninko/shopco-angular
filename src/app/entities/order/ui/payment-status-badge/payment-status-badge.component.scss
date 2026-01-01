@@ -1,0 +1,27 @@
+.payment-status-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.payment-status-pending {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  &.payment-status-paid {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  &.payment-status-failed {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  &.payment-status-refunded {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+}

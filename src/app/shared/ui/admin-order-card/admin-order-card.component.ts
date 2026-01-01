@@ -1,11 +1,12 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Order, OrderStatus } from '../../../data/orders.data';
 import { OrderStatusBadgeComponent } from '../../../entities/order/ui/order-status-badge/order-status-badge.component';
+import { PaymentStatusBadgeComponent } from '../../../entities/order/ui/payment-status-badge/payment-status-badge.component';
 import { getImageUrl } from '../../utils/image.utils';
 
 @Component({
   selector: 'app-admin-order-card',
-  imports: [OrderStatusBadgeComponent],
+  imports: [OrderStatusBadgeComponent, PaymentStatusBadgeComponent],
   templateUrl: './admin-order-card.component.html',
   styleUrl: './admin-order-card.component.scss',
 })

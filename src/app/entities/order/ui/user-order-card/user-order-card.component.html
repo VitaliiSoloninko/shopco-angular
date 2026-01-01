@@ -4,7 +4,10 @@
       <h3 class="order-number">{{ order().orderNumber }}</h3>
       <span class="order-date">{{ order().createdAt | date : "medium" }}</span>
     </div>
-    <app-order-status-badge [status]="order().status" />
+    <div class="order-badges">
+      <app-order-status-badge [status]="order().status" />
+      <app-payment-status-badge [status]="order().paymentStatus" />
+    </div>
   </div>
 
   <div class="order-body">
