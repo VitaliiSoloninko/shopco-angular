@@ -1,7 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Order, OrderStatus } from '../../../data/orders.data';
 import { OrderStatusBadgeComponent } from '../../../entities/order/ui/order-status-badge/order-status-badge.component';
-import { IMAGES_BASE_URL } from '../../../urls';
+import { getImageUrl } from '../../utils/image.utils';
 
 @Component({
   selector: 'app-admin-order-card',
@@ -11,6 +11,7 @@ import { IMAGES_BASE_URL } from '../../../urls';
 })
 export class AdminOrderCardComponent {
   order = input.required<Order>();
+  getImageUrl = getImageUrl;
 
   @Output() delete = new EventEmitter<number>();
   @Output() statusChange = new EventEmitter<{
@@ -59,13 +60,5 @@ export class AdminOrderCardComponent {
       hour: '2-digit',
       minute: '2-digit',
     });
-  }
-
-  getImageUrl(imagePath: string): string {
-    if (!imagePath) return '';
-    // If image path already includes http/https, return as is
-    if (imagePath.startsWith('http')) return imagePath;
-    // Otherwise, prepend base URL
-    return IMAGES_BASE_URL + imagePath;
   }
 }

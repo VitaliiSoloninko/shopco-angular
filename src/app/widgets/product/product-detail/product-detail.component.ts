@@ -8,7 +8,7 @@ import { Product } from '../../../entities/product/model/product';
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { QuantityControlComponent } from '../../../shared/ui/quantity-control/quantity-control.component';
 import { SizeSelectorComponent } from '../../../shared/ui/size-selector/size-selector.component';
-import { IMAGES_BASE_URL } from '../../../urls';
+import { getImageUrl } from '../../../shared/utils/image.utils';
 
 @Component({
   selector: 'app-product-detail',
@@ -24,6 +24,7 @@ import { IMAGES_BASE_URL } from '../../../urls';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | null = null;
+  getImageUrl = getImageUrl;
 
   sizes = ['Small', 'Medium', 'Large', 'X-Large'];
   selectedSize = 'Large';
@@ -50,12 +51,6 @@ export class ProductDetailComponent implements OnInit {
         },
       });
     }
-  }
-
-  getImageUrl(imagePath: string): string {
-    if (!imagePath) return '';
-    if (imagePath.startsWith('http')) return imagePath;
-    return IMAGES_BASE_URL + imagePath;
   }
 
   get currentPrice() {

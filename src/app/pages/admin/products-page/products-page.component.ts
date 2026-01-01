@@ -9,7 +9,7 @@ import { AdminProductListComponent } from '../../../shared/ui/admin-product-list
 import { GrayLineComponent } from '../../../shared/ui/gray-line/gray-line.component';
 import { LoaderComponent } from '../../../shared/ui/loader/loader.component';
 import { ModalComponent } from '../../../shared/ui/modal/modal.component';
-import { IMAGES_BASE_URL } from '../../../urls';
+import { getImageUrl } from '../../../shared/utils/image.utils';
 
 @Component({
   selector: 'app-products-page',
@@ -45,7 +45,7 @@ export class ProductsPageComponent implements OnInit {
         this.adminEntities = response.products.map((p: Product) => ({
           id: p.id!,
           name: p.name,
-          img: this.getImageUrl(p.img),
+          img: getImageUrl(p.img),
           price: p.price,
           hasImage: !!p.img,
         }));
@@ -91,17 +91,5 @@ export class ProductsPageComponent implements OnInit {
 
   onImageClick(entity: AdminEntity) {
     this.router.navigate(['admin/products/upload-image', entity.id]);
-  }
-
-  private getImageUrl(imagePath: string | null): string | null {
-    if (!imagePath) return null;
-
-    // If it's already a full URL, return as is
-    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-      return imagePath;
-    }
-
-    // If it's a relative path, add base URL
-    return IMAGES_BASE_URL + imagePath;
   }
 }
